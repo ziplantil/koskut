@@ -1022,15 +1022,14 @@ static void aloita_a(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
 
         haku = poikki;
         aste = lue_vahva_aste(sana, &haku, vokaali);
-        taiv = luo_nomtaiv(9, aste, sointu, 0, veikkaus->vokaali & 8 ? 0
-                                             : veikkaus->vokaali);
+        taiv = luo_nomtaiv(9, aste, sointu, 0, veikkaus->vokaali);
 
         if (aste == 4 && haku > sana) {
             const char *temp = haku;
             /* aseta I vartalovokaaliksi, jos se edeltää k:ta */
             merkki = K_INB(temp, sana);
             if (merkki == K_FI_I) {
-                veikkaus->vokaali |= 8;
+                taiv = vaihda_vokaali(taiv, 0);
             } else if (merkki == vokaali && temp > sana) {
                 merkki = K_INB(temp, sana);
                 if (merkki == vokaali) {

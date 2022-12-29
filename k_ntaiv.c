@@ -229,7 +229,7 @@ static const unsigned char vokaali_ok[64] = {
 #define K_LUOKKA(taiv)    (((taiv) >> 8) & 63)
 #define K_ASTE(taiv)      (((taiv) >> 3) & 31)
 #define K_VOKAALI(taiv)   ((taiv) & 7)
-#include <stdio.h>
+
 int k_ntaiv_ok(kt_nomini vart) {
     kt_nomtaiv taiv = vart.taiv;
     if (taiv == 0) return 0;

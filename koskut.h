@@ -95,9 +95,8 @@ typedef struct k_nomveik {
     unsigned char tilat[9];     /* vaihtoehtojen kohdetilat */
     unsigned char luokka;       /* väliaikainen taivutusluokka */
     unsigned char vokaali;      /* väliaikainen loppuvokaali ja sointu
-                                    s---IVVV
+                                    s----VVV
                                         s: 0=taka, 1=etu
-                                        I: edeltävä I (kala, koira...)
                                         VVV: vokaali (kuin yllä) */
 } kt_nomveik;
 

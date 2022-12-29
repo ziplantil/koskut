@@ -22,10 +22,10 @@ all: $(PROGS)
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) $(DEFINES) -I$(LIBPATH) -c -o $@ $<
 
-sana: $(LIBFILES) ../k_cu8.o ../k_aste.o ../k_nvart.o ../k_ntaiv.o sana.o $(HEADERS)
+sana: $(LIBFILES) ../k_cu8.o ../k_aste.o ../k_nvart.o ../k_ntaiv.o sana.o
 	$(LD) -o $@ $^ $(LFLAGS)
 
-veikkaa: $(LIBFILES) ../k_cu8.o ../k_aste.o ../k_nvart.o ../k_ntaiv.o ../k_nveik.o veikkaa.o $(HEADERS)
+veikkaa: $(LIBFILES) ../k_cu8.o ../k_aste.o ../k_nvart.o ../k_ntaiv.o ../k_nveik.o veikkaa.o
 	$(LD) -o $@ $^ $(LFLAGS)
 
 clean:
