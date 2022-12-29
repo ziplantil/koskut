@@ -22,7 +22,7 @@ Kääntäjämäärittelyt
         1 = isot ja pienet kirjaimet erikseen, 0 = vain 'pienet'.
 
 
-kt_nomtaiv 
+kt_nomtaiv
     16-bittinen etumerkitön kokonaisluku (uint16_t / unsigned short), jonka
     bittirakenne on seuraava:
 
@@ -69,12 +69,12 @@ kt_nomtaiv
             Taivutusluokat 5, 6: ei loppu-I:tä.
             Taivutusluokat 24, 26: yks. part. aina takainen.
             Muille kuin 0, mutta älä käytä.
-    
+
     VVV: loppuvokaali. Joillain taivutusluokilla tämä voi vaihdella, mutta
         toisilla sen pitää olla tietty arvo. Ks. nomtaiv.txt.
           0  1  2  3  4  5  6  7
           I  A  O  U  E  Ä  Ö  Y
-    
+
     Esimerkki:
         sanan "koira" kt_nomtaiv:       0x0A01
                  v:  0 = takavokaalit
@@ -267,7 +267,7 @@ extern kt_koko k_nveik_vaihtoehto(const kt_nomveik *veikkaus, unsigned numero,
                                   char *puskuri, kt_koko puskuri_koko);
     Palauttaa numeron määrittämän vaihtoehdon (jos vaihtoehtoja on esimerkiksi
     kaksi, numero voi olla 0 tai 1) puskuriin.
-    
+
     Vaihtoehtoja taataan olevan aina korkeintaan yhdeksän.
 
     Tiedostossa k_nveik.c.

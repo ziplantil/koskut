@@ -87,7 +87,7 @@ Pakolliset astevaihtelut (joillekin taivutusluokille)
     Jos ei määritetä, taivutusluokka ei toimi oikein.
 
     LLLLLL     KTSK             AAAA          Astevaihtelu    Huomautukset
-    
+
     16         vanhempi          8 = 01000    *H (mp : mm)
     27         käsi              6 = 00110    *F  (t : d)
     34         onneton           3 = 00011    *C (tt : t)
@@ -98,7 +98,7 @@ Pakolliset astevaihtelut (joillekin taivutusluokille)
     46         tuhat            10 = 01010    *J (nt : nn)
 
     LLLLLL     KTSK             Vaihtoehdot
-    
+
     28         kynsi             9 (ls), 10 (ns) tai 11 (rs)
 
     LLLLLL     KTSK             AAAA

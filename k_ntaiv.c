@@ -276,7 +276,7 @@ kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
 
     if (leikkaa > sana_pituus) leikkaa = sana_pituus;
     leikkaa = sana_pituus - leikkaa;
-    
+
     if (leikkaa > puskuri_koko) {
         k_kopioi(puskuri, sana, puskuri_koko);
         puskuri = loppu;

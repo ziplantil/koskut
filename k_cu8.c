@@ -167,7 +167,7 @@ kt_merkki kt_inf_conv(const char **pp, const char *p1c) {
             n = 1, u = c & 0x1FU;
         else
             return K_FI_NA;
-        
+
         while (n--) {
             if (p == p1) {
                 u = 0;
@@ -228,7 +228,7 @@ kt_koko kt_out_conv(char **pp, char *p1c, const kt_merkki c) {
         b[1] = 0x80U | ((u >> 12) & 0x3F),
         b[2] = 0x80U | ((u >>  6) & 0x3F),
         b[3] = 0x80U | ((u      ) & 0x3F);
-    
+
     for (i = 0; i < n && p < p1; ++i)
         *p++ = b[i];
 

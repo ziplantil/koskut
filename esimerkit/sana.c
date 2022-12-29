@@ -240,7 +240,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         if (merkki != K_FI_O && merkki != K_FI_U
          && merkki != K_FI_Y && merkki != K_FI_OE) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
-        
+
         if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(merkki);
         if (aste == 4) {
@@ -275,7 +275,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
          && merkki != K_FI_Y && merkki != K_FI_OE) goto virhe;
         if (aste != 1 && aste != 2 && aste != 3) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
-        
+
         if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(merkki);
         break;
@@ -655,21 +655,22 @@ static void taivuta_ja_tulosta(const char *sana, kt_nomini vart,
     n = k_ntaiv_taivuta(vart, muoto, sana, pituus,
                         puskuri, sizeof(puskuri) - 1);
     nolla_loppuun(puskuri, sizeof(puskuri), n);
-    
+
     printf("%-30s", muoto_nimi);
     puts(puskuri);
 }
 
 int main(int argc, char *argv[]) {
     kt_nomini nomvart;
-    char c[16];
+    char c[16], *p;
 
     printf("Sana? ");
     fflush(stdout);
     if (!fgets(sana, sizeof(sana), stdin))
         return 1;
-    *strchr(sana, '\n') = 0;
-    
+    p = strchr(sana, '\n');
+    if (p) *p = 0;
+
     puts("Taivutusluokat ja astevaihtelut noudattavat Kielitoimiston");
     puts("sanakirjan mukaista merkintätapaa.");
 

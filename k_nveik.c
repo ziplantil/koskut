@@ -315,7 +315,7 @@ static unsigned tavuja_korkeintaan(kt_nomveik *veikkaus) {
                 diftongi = v == K_FI_Y;
                 break;
             }
-            
+
             if (diftongi) {
                 v = K_FI_NA;
                 alku = 0;
@@ -509,7 +509,7 @@ static unsigned suo_mon_ill(kt_nomveik *veikkaus) {
         unsigned vokaali = veikkaus->vokaali & 7;
         unsigned sointu = vokaali & 4;
         kt_nomtaiv taiv = luo_nomtaiv(0, 0, sointu, 0, vokaali);
-        
+
         poikki = loppu;
         K_INB(poikki, veikkaus->sana);
         K_INB(poikki, veikkaus->sana);
@@ -574,12 +574,12 @@ static unsigned kala_mon_par(kt_nomveik *veikkaus) {
 
         /* kala */
         lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
-                muuta_taivutusta(pohja, 
+                muuta_taivutusta(pohja,
                         aseta_luokka(pohja.taiv, 9 + koira_ensin)));
 
         /* koira */
         lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
-                muuta_taivutusta(pohja, 
+                muuta_taivutusta(pohja,
                         aseta_luokka(pohja.taiv, 10 - koira_ensin)));
 
         if (tavuja <= 2)
@@ -626,7 +626,7 @@ static unsigned valo_mon_par(kt_nomveik *veikkaus) {
         unsigned tavuja = tavuja_korkeintaan(veikkaus);
         kt_nomini pohja = luokanvaihto(veikkaus->edellinen);
         unsigned aste = K_ASTE(pohja.taiv);
-        
+
         veikkaus->muoto = K_NTAIV_MPAR;
 
         /* valo */
@@ -655,7 +655,7 @@ static unsigned risti_mon_par(kt_nomveik *veikkaus) {
         unsigned tavuja = tavuja_korkeintaan(veikkaus);
         kt_nomini pohja = luokanvaihto(veikkaus->edellinen);
         unsigned aste = K_ASTE(pohja.taiv);
-        
+
         veikkaus->muoto = K_NTAIV_MPAR;
 
         /* risti */
@@ -872,7 +872,7 @@ static unsigned ovi_par(kt_nomveik *veikkaus) {
                         aseta_luokka(pohja.taiv, 7))));
     lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
             muuta_taivutusta(pohja, aseta_luokka(pohja.taiv, 7)));
-    
+
     switch (veikkaus->luokka) {
     case M_I_TOIMI:
         if (merkki != K_FI_M) break;
@@ -908,7 +908,7 @@ static unsigned ovi_par(kt_nomveik *veikkaus) {
     if (x_luokka) {
         const char *poikki = sana_loppu - pohja.leikkaa;
         pohja.taiv = aseta_luokka(pohja.taiv, x_luokka);
-        
+
         while (x_poikki--) {
             K_INB(poikki, veikkaus->sana);
             pohja.leikkaa = sana_loppu - poikki;
@@ -956,14 +956,14 @@ static unsigned par_sointu(kt_nomveik *veikkaus, unsigned seuraava) {
     kt_nomini pohja = veikkaus->edellinen;
 
     pohja.taiv = taiv_etinen(pohja.taiv);
-    
+
     veikkaus->muoto = K_NTAIV_YPAR;
 
     if (voiko_olla_takainen(veikkaus))
         lisaa_vaihtoehto(veikkaus, valintoja++, seuraava,
                 muuta_taivutusta(pohja, taiv_takainen(pohja.taiv)));
     lisaa_vaihtoehto(veikkaus, valintoja++, seuraava, pohja);
-    
+
     return valintoja;
 }
 
@@ -1005,7 +1005,7 @@ static void aloita_a(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     kt_merkki vokaali;
     unsigned valintoja = 0;
     unsigned sointu = 0;
-    
+
     vokaali = merkki;
     sointu = automaattinen_sointu(vokaali);
     veikkaus->vokaali = pakkaa_vokaali(vokaali) | (sointu ? 0x80 : 0x00);
@@ -1041,7 +1041,7 @@ static void aloita_a(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
 
         lisaa_vaihtoehto(veikkaus, valintoja++, T_KALA_PAR,
             luo_nomini(loppu - haku, taiv));
-        
+
         if (aste) {
             /* genetiivi tarvitsee kysyä vain, jos astevaihtelua on. */
             lisaa_vaihtoehto(veikkaus, valintoja++, T_KALA_PAR,
@@ -1059,7 +1059,7 @@ static void aloita_o(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     kt_merkki vokaali;
     unsigned valintoja = 0;
     unsigned sointu = 0;
-    
+
     vokaali = merkki;
     sointu = automaattinen_sointu(vokaali);
     veikkaus->vokaali = pakkaa_vokaali(vokaali) | (sointu ? 0x80 : 0x00);
@@ -1108,7 +1108,7 @@ static void aloita_o(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
 
         lisaa_vaihtoehto(veikkaus, valintoja++, T_VALO_PAR,
             luo_nomini(loppu - haku, taiv));
-        
+
         if (aste) {
             /* genetiivi tarvitsee kysyä vain, jos astevaihtelua on. */
             lisaa_vaihtoehto(veikkaus, valintoja++, T_VALO_PAR,
@@ -1125,7 +1125,7 @@ static void aloita_i(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     const char *poikki = haku;
     kt_merkki vokaali;
     unsigned valintoja = 0;
-    
+
     vokaali = merkki;
     veikkaus->vokaali = pakkaa_vokaali(vokaali);
 
@@ -1164,7 +1164,7 @@ static void aloita_i(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
         if (aste == 8) {
             /* vanhempi */
             unsigned takainen = voiko_olla_takainen(veikkaus);
-            
+
             /* risti */
             if (takainen)
                 lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
@@ -1237,7 +1237,7 @@ static void aloita_e(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     const char *poikki = haku;
     kt_merkki vokaali;
     unsigned valintoja = 0;
-    
+
     vokaali = merkki;
     veikkaus->vokaali = pakkaa_vokaali(vokaali);
 
@@ -1300,7 +1300,7 @@ static void aloita_nc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     kt_merkki vokaali;
     unsigned valintoja = veikkaus->valintoja;
     unsigned sointu;
-    
+
     vokaali = merkki;
     veikkaus->vokaali = pakkaa_vokaali(vokaali);
     veikkaus->muoto = K_NTAIV_YGEN;
@@ -1308,7 +1308,7 @@ static void aloita_nc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     poikki = haku;
     merkki = K_INB(haku, sana);
     sointu = automaattinen_sointu(merkki);
-    
+
     /* 38 */
     if (merkki == K_FI_E) {
         const char *temp = haku;
@@ -1325,7 +1325,7 @@ static void aloita_nc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
             return;
         }
     }
-    
+
     /* 34 */
     if (merkki == K_FI_O || merkki == K_FI_OE) {
         const char *temp = haku;
@@ -1378,7 +1378,7 @@ static void aloita_nc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
 
         lisaa_vaihtoehto(veikkaus, valintoja++, i ? T_PAR_SOINTU : T_LOPPU,
             luo_nomini(loppu - temp, taiv));
-        
+
         if (aste)
             lisaa_vaihtoehto(veikkaus, valintoja++, i ? T_PAR_SOINTU : T_LOPPU,
                 luo_nomini(loppu - haku, poista_aste(taiv)));
@@ -1417,14 +1417,14 @@ static void aloita_tc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     kt_merkki vokaali;
     unsigned valintoja = veikkaus->valintoja;
     unsigned sointu;
-    
+
     vokaali = merkki;
     veikkaus->vokaali = pakkaa_vokaali(vokaali);
 
     poikki = haku;
     merkki = K_INB(haku, sana);
     sointu = automaattinen_sointu(merkki);
-    
+
     /* 44, 46 */
     if (merkki == K_FI_A || merkki == K_FI_AE) {
         unsigned vok = pakkaa_vokaali(merkki);
@@ -1437,7 +1437,7 @@ static void aloita_tc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
         lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
             luo_nomini(loppu - poikki, luo_nomtaiv(46, 10, sointu, 0, 4)));
     }
-    
+
     /* 43, 47 */
     if (merkki == K_FI_U || merkki == K_FI_Y) {
         const char *temp = haku;
@@ -1450,7 +1450,7 @@ static void aloita_tc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
         /* ohut */
         lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
             luo_nomini(loppu - temp, aseta_aste(taiv, aste)));
-    
+
         if (aste) {
             lisaa_vaihtoehto(veikkaus, valintoja++, T_LOPPU,
                 luo_nomini(loppu - haku, taiv));
@@ -1472,7 +1472,7 @@ static void aloita_sc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     unsigned valintoja = veikkaus->valintoja;
     unsigned sointu;
     unsigned tila;
-    
+
     vokaali = merkki;
 
     poikki = haku;
@@ -1485,7 +1485,7 @@ static void aloita_sc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
 
     /* kysy sointua, jos ei selvä vokaalista. */
     tila = !~sointu ? T_PAR_SOINTU : T_LOPPU;
-    
+
     /* 39, 40 */
     /* vastaus */
     lisaa_vaihtoehto(veikkaus, valintoja++, tila,
@@ -1508,20 +1508,20 @@ static void aloita_sc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
 
         lisaa_vaihtoehto(veikkaus, valintoja++, tila,
             luo_nomini(loppu - temp, taiv));
-    
+
         if (aste) {
             lisaa_vaihtoehto(veikkaus, valintoja++, tila,
                 luo_nomini(loppu - haku, poista_aste(taiv)));
         }
     }
-    
+
     /* 42 */
     if (merkki == K_FI_E) {
         /* mies */
         lisaa_vaihtoehto(veikkaus, valintoja++, T_PAR_SOINTU,
             luo_nomini(loppu - poikki, luo_nomtaiv(42, 0, 0, 0, 4)));
     }
-    
+
     /* 45 */
     /* kahdeksas */
     lisaa_vaihtoehto(veikkaus, valintoja++, tila,
@@ -1535,13 +1535,13 @@ static void aloita_lc(kt_nomveik *veikkaus, kt_merkki merkki, const char *sana,
     kt_merkki vokaali;
     unsigned valintoja = veikkaus->valintoja;
     unsigned sointu;
-    
+
     vokaali = merkki;
     veikkaus->vokaali = pakkaa_vokaali(vokaali);
 
     merkki = K_INB(haku, sana);
     sointu = automaattinen_sointu(merkki);
-    
+
     /* 32, 49 */
     if (merkki == K_FI_A || merkki == K_FI_AE || merkki == K_FI_E) {
         const char *temp = haku;
@@ -1597,7 +1597,7 @@ static void aloita(kt_nomveik *veikkaus,
     kt_merkki merkki;
     int vokaaliloppu = 0;
     unsigned rist = 0;
-    
+
     merkki = K_INB(haku, sana);
     veikkaus->luokka = 0;
     veikkaus->vokaali = 0;
@@ -1609,7 +1609,7 @@ static void aloita(kt_nomveik *veikkaus,
     case K_FI_AE:
         aloita_a(veikkaus, merkki, sana, haku, loppu);
         break;
-    
+
     case K_FI_O:
     case K_FI_OE:
     case K_FI_U:

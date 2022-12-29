@@ -311,7 +311,7 @@ static kt_koko k_vartalo(kt_nomtaiv taiv, char **p_puskuri, char *loppu,
         case K_O:
             m = K_ETINEN(taiv) ? K_FI_OE : K_FI_O;
             break;
-        
+
         case K_KV:
         case K_KH:
             n += k_aste_aste2(taiv, m == K_KV, &puskuri, loppu);
@@ -369,19 +369,19 @@ static const unsigned char vartalot_yv[64] = {
 };
 
 /* sisältää heikot yksikkövartalot, illatiivivartalot ja partitiivikannat. */
-/* oktaalilukuna: 
-    yks.par.kanta        yks.ill.vartalo      yks.heik.vartalo 
-     0   --               0   V_ILL            0   =yks.vahv.  
-     1   yks.vahv.        1   V_ILL_H          1   V_YH        
-     2   yks.nom.         2   V_ILL_EEN        2   V_VALO_YH   
-     3   yks.vahv + A     3   V_ILL_AN         3   V_KOIRA_YH  
-                          4   V_ILL_AAN        4   V_KAKSI_YH  
-                          5   V_ILL_SEEN                       
+/* oktaalilukuna:
+    yks.par.kanta        yks.ill.vartalo      yks.heik.vartalo
+     0   --               0   V_ILL            0   =yks.vahv.
+     1   yks.vahv.        1   V_ILL_H          1   V_YH
+     2   yks.nom.         2   V_ILL_EEN        2   V_VALO_YH
+     3   yks.vahv. + A    3   V_ILL_AN         3   V_KOIRA_YH
+                          4   V_ILL_AAN        4   V_KAKSI_YH
+                          5   V_ILL_SEEN
 */
 
 static const unsigned char vartalot_ypih[64] = {
 /*    --      1      2      3      4      5      6      7  */
-    0101U, 0102U, 0100U, 0100U, 0101U, 0101U, 0100U, 0101U, 
+    0101U, 0102U, 0100U, 0100U, 0101U, 0101U, 0100U, 0101U,
 /*     8      9     10     11     12     13     14     15  */
     0102U, 0133U, 0133U, 0100U, 0100U, 0100U, 0101U, 0100U,
 /*    16     17     18     19     20     21     22     23  */
@@ -393,9 +393,9 @@ static const unsigned char vartalot_ypih[64] = {
 /*    40     41     42     43     44     45     46     47  */
     0001U, 0250U, 0200U, 0220U, 0250U, 0001U, 0001U, 0250U,
 /*    48     49                                            */
-    0050U, 0250U, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                    
+    0230U, 0310U,     0,     0,     0,     0,     0,     0,
 /*                                              62     63  */
-                                              0340U, 0110U
+        0,     0,     0,     0,     0,     0, 0340U, 0110U
 };
 
 static const unsigned char vartalot_yp_a[] = {
@@ -409,22 +409,22 @@ static const unsigned char vartalot_yi_a[] = {
 };
 
 /* sisältää partitiivivartalot ja nominatiivivartalot. */
-/* yhdistelmänä N(a, b): 
-   yks.nom.vartalo                                          yks.par.vartalo    
-    0   = yks.vahv.    8   V_SISAR_I    16   V_TUHAT_I       0   0          
-    1   V_OVI_I        9   V_KYTKIN_I   17   V_HAME_I        1   V_MAA_YP   
-    2   V_TOIMI_I     10   V_SISIN_I    18   0               2   V_TOIMI_YP 
-    3   V_VESI_I      11   V_NAINEN_I                        3   V_TUHAT_YP 
-    4   V_KYNSI_I     12   V_MIES_I                          4   V_KYNSI_YP 
-    5   V_LAPSI_I     13   V_VIERAS_I                        5   V_LAPSI_YP    
+/* yhdistelmänä N(a, b):
+   yks.nom.vartalo                                          yks.par.vartalo
+    0   = yks.vahv.    8   V_SISAR_I    16   V_TUHAT_I       0   0
+    1   V_OVI_I        9   V_KYTKIN_I   17   V_HAME_I        1   V_MAA_YP
+    2   V_TOIMI_I     10   V_SISIN_I    18   0               2   V_TOIMI_YP
+    3   V_VESI_I      11   V_NAINEN_I                        3   V_TUHAT_YP
+    4   V_KYNSI_I     12   V_MIES_I                          4   V_KYNSI_YP
+    5   V_LAPSI_I     13   V_VIERAS_I                        5   V_LAPSI_YP
     6   V_VEITSI_I    14   V_OHUT_I                          6   V_KAKSI_YP
     7   V_KAKSI_I     15   V_KEVAT_I                         7   V_HAME_YP
 */
 
 #define N(a, b) (((a##U) << 3) | (b##U))
-static const unsigned char vartalot_ypn[64] = {
+static const unsigned char vartalot_ynp[64] = {
 /*    --        1        2        3        4        5        6        7     */
-    N( 0,0), N( 0,0), N( 0,0), N( 0,1), N( 0,0), N( 0,0), N( 0,0), N( 1,0), 
+    N( 0,0), N( 0,0), N( 0,0), N( 0,1), N( 0,0), N( 0,0), N( 0,0), N( 1,0),
 /*      8        9       10       11       12       13       14       15    */
     N( 0,0), N( 0,0), N( 0,0), N( 0,0), N( 0,0), N( 0,0), N( 0,0), N( 0,0),
 /*     16       17       18       19       20       21       22       23    */
@@ -436,9 +436,9 @@ static const unsigned char vartalot_ypn[64] = {
 /*     40       41       42       43       44       45       46       47    */
     N(12,3), N(13,1), N(12,1), N(14,1), N(15,1), N(12,3), N(16,3), N(15,1),
 /*     48       49                                                          */
-    N(17,7), N( 8,1), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                    
+    N(17,7), N( 8,1),       0,       0,       0,       0,       0,       0,
 /*                                                          62       63     */
-                                                          N(18,0), N(18,1)
+          0,       0,       0,       0,       0,       0, N(18,0), N(18,1)
 };
 #undef N
 
@@ -450,7 +450,7 @@ static const unsigned char vartalot_yp_b[] = {
 static const unsigned char vartalot_yn_b[] = {
     V_OVI_I, V_TOIMI_I, V_VESI_I, V_KYNSI_I, V_LAPSI_I, V_VEITSI_I,
     V_KAKSI_I, V_SISAR_I, V_KYTKIN_I, V_SISIN_I, V_NAINEN_I, V_MIES_I,
-    V_VIERAS_I, V_OHUT_I, V_KEVAT_I, V_TUHAT_I, V_HAME_I
+    V_VIERAS_I, V_OHUT_I, V_KEVAT_I, V_TUHAT_I, V_HAME_I, 0
 };
 
 #if KOSKUT_PLURALS
@@ -490,11 +490,11 @@ static const unsigned char vartalot_mv[64] = {
 };
 
 /* sisältää heikot monikkovartalot, illatiivivartalot ja partitiivikannat. */
-/* oktaalilukuna: 
-    mon.par.kanta        mon.ill.vartalo      mon.heik.vartalo 
-     0   MVi +   -A       0   -in              0   =mon.vahv.  
+/* oktaalilukuna:
+    mon.par.kanta        mon.ill.vartalo      mon.heik.vartalo
+     0   MVi +   -A       0   -in              0   =mon.vahv.
      1   MVj +   -A       1   -hin             1   =yks.nom.
-     2   MH  + -itA       2   -ihin            2   V_YH   
+     2   MH  + -itA       2   -ihin            2   V_YH
      3   0   +  -iA       3   -siin            3   V_MH
                                                4   V_RISTI_MH
                                                5   V_OVI_MH
@@ -503,7 +503,7 @@ static const unsigned char vartalot_mv[64] = {
 
 static const unsigned char vartalot_mpih[64] = {
 /*    --      1      2      3      4      5      6      7  */
-    0012U, 0112U, 0110U, 0210U, 0212U, 0114U, 0214U, 0005U, 
+    0012U, 0112U, 0110U, 0210U, 0212U, 0114U, 0214U, 0005U,
 /*     8      9     10     11     12     13     14     15  */
     0112U, 0116U, 0003U, 0003U, 0216U, 0216U, 0216U, 0233U,
 /*    16     17     18     19     20     21     22     23  */
@@ -515,9 +515,9 @@ static const unsigned char vartalot_mpih[64] = {
 /*    40     41     42     43     44     45     46     47  */
     0000U, 0230U, 0000U, 0230U, 0230U, 0020U, 0020U, 0230U,
 /*    48     49                                            */
-    0230U, 0310U, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                    
+    0230U, 0310U,     0,     0,     0,     0,     0,     0,
 /*                                              62     63  */
-                                              0000U, 0210U
+        0,     0,     0,     0,     0,     0, 0000U, 0210U
 };
 
 static const unsigned char vartalot_mh_a[] = {
@@ -537,7 +537,7 @@ static const unsigned char vartalot_mp_b[] = {
 };
 
 /* sisältää monikon genetiivimuotojen tiedot. */
-/* oktaalilukuna: 
+/* oktaalilukuna:
     mon.gen.kanta        mon.gen.pääte
      0   0                0   V_MG_E
      1   K_NVART_YV       1   V_MG_DE
@@ -549,7 +549,7 @@ static const unsigned char vartalot_mp_b[] = {
 
 static const unsigned char vartalot_mg[64] = {
 /*    --      1      2      3      4      5      6      7  */
-    0040U, 0050U, 0050U, 0041U, 0031U, 0010U, 0041U, 0040U, 
+    0040U, 0050U, 0050U, 0041U, 0031U, 0010U, 0041U, 0040U,
 /*     8      9     10     11     12     13     14     15  */
     0050U, 0050U, 0040U, 0040U, 0041U, 0041U, 0031U, 0041U,
 /*    16     17     18     19     20     21     22     23  */
@@ -561,9 +561,9 @@ static const unsigned char vartalot_mg[64] = {
 /*    40     41     42     43     44     45     46     47  */
     0040U, 0041U, 0022U, 0040U, 0041U, 0040U, 0040U, 0041U,
 /*    48     49                                            */
-    0041U, 0022U, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                    
+    0230U, 0310U,     0,     0,     0,     0,     0,     0,
 /*                                              62     63  */
-                                              0040U, 0041U
+        0,     0,     0,     0,     0,     0, 0040U, 0041U
 };
 
 static const unsigned char vartalot_mg_a[] = {
@@ -601,11 +601,12 @@ static kt_koko k_nvart_yp(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     unsigned kanta;
 
     kanta = vartalot_ypih[K_LUOKKA(taiv)] >> 6;
-    if (kanta == 3)
+    if (kanta == 3) {
+        kanta = K_NVART_YV;
         varsi = V_MAA_YP_A;
-    else {
+    } else {
         kanta = vartalot_yp_a[kanta];
-        varsi = vartalot_yp_b[vartalot_ypn[K_LUOKKA(taiv)] & 7];
+        varsi = vartalot_yp_b[vartalot_ynp[K_LUOKKA(taiv)] & 7];
     }
 
     if (kanta) {
@@ -627,7 +628,7 @@ static kt_koko k_nvart_yn(kt_nomtaiv taiv, char **puskuri, char *loppu) {
             }
     }
 
-    varsi = vartalot_ypn[K_LUOKKA(taiv)] >> 3;
+    varsi = vartalot_ynp[K_LUOKKA(taiv)] >> 3;
     if (!varsi--) return k_nvart_yv(taiv, puskuri, loppu);
     return k_vartalo(taiv, puskuri, loppu, vartalot_yn_b[varsi]);
 }

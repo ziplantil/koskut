@@ -24,7 +24,7 @@ static void taivuta_ja_tulosta(const char *sana, kt_nomini vart,
     n = k_ntaiv_taivuta(vart, muoto, sana, pituus,
                         puskuri, sizeof(puskuri) - 1);
     nolla_loppuun(puskuri, sizeof(puskuri), n);
-    
+
     printf("%-30s", muoto_nimi);
     puts(puskuri);
 }
@@ -67,12 +67,12 @@ int main(int argc, char *argv[]) {
     if (!fgets(sana, sizeof(sana), stdin))
         return 1;
     loppu = strchr(sana, '\n');
-    *loppu = 0;
+    if (loppu) *loppu = 0;
 
     /* jos sana alkaa isolla alkukirjaimella, älä anna monikkomuotoja */
     merkki = K_INF(alku, loppu);
     monikot = on_pieni_kirjain(merkki);
-    
+
     k_nveik_alusta(&veikkaus, monikot, sana, strlen(sana));
     while ((n = k_nveik_vaihtoehtoja(&veikkaus)) > 1) {
         unsigned i;
@@ -104,6 +104,8 @@ int main(int argc, char *argv[]) {
         puts("Jokin meni pieleen.");
         return 1;
     }
+
+    printf("taiv=0x%04X\n", nom.taiv);
 
     taivuta_ja_tulosta(sana, nom, K_NTAIV_YNOM, "yks. nominatiivi");
     taivuta_ja_tulosta(sana, nom, K_NTAIV_YGEN, "yks. genetiivi");
@@ -138,6 +140,6 @@ int main(int argc, char *argv[]) {
         taivuta_ja_tulosta(sana, nom, K_NTAIV_MCOM, "mon. komitatiivi");
     }
 #endif
-    
+
     return 0;
 }
