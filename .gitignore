@@ -1,0 +1,4 @@
+*.o
+.vscode/
+esimerkit/sana
+esimerkit/veikkaa

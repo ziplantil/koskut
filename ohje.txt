@@ -1,0 +1,288 @@
+
+Yleiset:
+* Koskuen funktiot eivät oletuksena päätä merkkijonoja nollatavuun. Tämä
+  tulee tehdä itse käyttämällä paluuarvoa avuksi.
+* Kaikki Koskuen funktiot käyttävät puskureita, joille annetaan koko,
+  ja palauttaa montako tavua olisi kirjoitettu puskuriin yhteensä, vaikka
+  siinä ei olisi tarpeeksi tilaa (jolloin tuloksesta kirjoitetaan niin
+  paljon kuin puskurin tilaan mahtuu). Tämä tulee ottaa huomioon
+  merkkijonoa päättäessä!
+
+
+Kääntäjämäärittelyt
+    KOSKUT_CONVERT (oletus: 0)
+        Käytetäänkö merkistömuunnosmetodeita (ks. koskutio.h ja README.md).
+    KOSKUT_PLURALS (oletus: 1)
+        1 = tukee monikkomuotoja, 0 = ei tukea.IVES
+    KOSKUT_GRADE_VOICED_PLOSIVES (oletus: 1)
+        1 = tukee astevaihteluita 28-30, 0 = ei tukea.
+    KOSKUT_VERIFY (oletus: 1)
+        1 = parempi k_nomini_ok, 0 = yksinkertainen k_nomini_ok.
+    KOSKUT_CASE_SENSITIVE (oletus: 1)
+        1 = isot ja pienet kirjaimet erikseen, 0 = vain 'pienet'.
+
+
+kt_nomtaiv 
+    16-bittinen etumerkitön kokonaisluku (uint16_t / unsigned short), jonka
+    bittirakenne on seuraava:
+
+    Arvo 0 (kaikki bitit 0) on erikoisarvo, joka tarkoittaa "ei taivutusta".
+
+    vHLLLLLL AAAAAVVV
+
+    v:  vokaalisointu
+        1 = etinen, ÄÖY
+        0 = takainen, AOU
+    H:  heittomerkki/lisäbitti
+        Taivutusluokat 1, 7, 9, 10
+            1 = heittomerkki heikon asteen tilalla
+            0 = ei heittomerkkiä
+        Taivutusluokka 38
+            1 = muut kuin nominatiivi ovat monikossa (tapaus 'Ikaalinen')
+                (vaatii monikkotuen kääntämisen)
+            0 = ei päde
+        Muille taivutusluokille tulee olla 0.
+
+    LLLLLL: taivutusluokka Kielitoimiston sanakirjan numeroinnin mukaisesti.
+        Kelvot arvot ovat 1-49, 62, 63. Ks. nomtaiv.txt.
+
+    AAAAA: astevaihtelu. Loppuvokaalin tavoin joillain taivutusluokilla
+        tulee olla tietty astevaihtelu. Ks. nomtaiv.txt.
+         0: ei astevaihtelua
+         1: A (kk : k )
+         2: B (pp : p )
+         3: C (tt : t )
+         4: D (k  : 0 )
+         5: E (p  : v )
+         6: F (t  : d )
+         7: G (nk : ng)
+         8: H (mp : mm)
+         9: Ì (lt : ll)
+        10: J (nt : nn)
+        11: K (rt : rr)
+        12: L (k  : j)
+        13: M (k  : v)
+        28:    gg : g       \
+        29:    bb : b        >- KOSKUT_GRADE_VOICED_PLOSIVES
+        30:    dd : d       /
+        31: ei astevaihtelua:
+            Taivutusluokat 5, 6: ei loppu-I:tä.
+            Taivutusluokat 24, 26: yks. part. aina takainen.
+            Muille kuin 0, mutta älä käytä.
+    
+    VVV: loppuvokaali. Joillain taivutusluokilla tämä voi vaihdella, mutta
+        toisilla sen pitää olla tietty arvo. Ks. nomtaiv.txt.
+          0  1  2  3  4  5  6  7
+          I  A  O  U  E  Ä  Ö  Y
+    
+    Esimerkki:
+        sanan "koira" kt_nomtaiv:       0x0A01
+                 v:  0 = takavokaalit
+                 H:  0 = ei heittomerkkiä
+            LLLLLL: 10 = luokka 'koira'
+             AAAAA:  0 = ei astevaihtelua
+               VVV:  1 = vokaali A
+
+        sanan "kieli" kt_nomtaiv:       0x9A04
+                 v:  1 = etuvokaalit
+                 H:  0
+            LLLLLL: 26 = luokka 'pieni'
+             AAAAA:  0 = ei astevaihtelua
+               VVV:  4 = vokaali E
+
+        sanan "ulappa" kt_nomtaiv:      0x0E11
+                 v:  0 = takavokaalit
+                 H:  0
+            LLLLLL: 14 = luokka 'solakka'
+             AAAAA:  2 = astevaihtelu B: pp:p
+               VVV:  1 = vokaali A
+
+        sanan "meri" kt_nomtaiv:        0x98FC
+                 v:  1 = etuvokaalit
+                 H:  0
+            LLLLLL: 24 = luokka 'uni'
+             AAAAA: 31 = ei astevaihtelua, yks.part. aina takainen
+               VVV:  4 = vokaali E
+
+        sanan "ruoko" kt_nomtaiv:       0x4122
+                 v:  0 = takaokaalit
+                 H:  1 = heittomerkki
+            LLLLLL:  1 = luokka 'valo'
+             AAAAA:  4 = astevaihtelu D: k:(')
+               VVV:  2 = vokaali O
+
+        sanan "aika" kt_nomtaiv:        0x0920
+                 v:  0 = takavokaalit
+                 H:  0 = ei heittomerkkiä
+            LLLLLL:  9 = luokka 'kala'
+             AAAAA:  4 = astevaihtelu D: k:(')
+               VVV:  0 = vokaali I
+
+        sanan "koskut" kt_nomtaiv:      0x2B03
+                 v:  0 = takavokaalit
+                 H:  0
+            LLLLLL: 43 = luokka 'ohut'
+             AAAAA:  0 = ei astevaihtelua
+               VVV:  3 = vokaali U
+
+kt_nomini
+    leikkaa     montako tavua poistetaan sanan lopusta ennen taivutusvartalon
+                lisäämistä. Katkaisukohta riippuu taivutusluokasta ja
+                astevaihtelusta; ks. nomtaiv.txt.
+
+    taiv        kt_nomtaiv, kuten yllä.
+
+
+extern kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
+                               const char *sana, kt_koko sana_pituus,
+                               char *puskuri, kt_koko puskuri_koko);
+    Taivuttaa nominia. muoto on yksi seuraavista:
+
+        K_NTAIV_YNOM = 0x00    /* yksikön nominatiivi */
+        K_NTAIV_YGEN = 0x01    /* yksikön genetiivi */
+        K_NTAIV_YPAR = 0x02    /* yksikön partitiivi */
+        K_NTAIV_YINE = 0x03    /* yksikön inessiivi */
+        K_NTAIV_YELA = 0x04    /* yksikön elatiivi */
+        K_NTAIV_YILL = 0x05    /* yksikön illatiivi */
+        K_NTAIV_YADE = 0x06    /* yksikön adessiivi */
+        K_NTAIV_YABL = 0x07    /* yksikön ablatiivi */
+        K_NTAIV_YALL = 0x08    /* yksikön allatiivi */
+        K_NTAIV_YESS = 0x09    /* yksikön essiivi */
+        K_NTAIV_YTRA = 0x0A    /* yksikön translatiivi */
+        K_NTAIV_YABE = 0x0C    /* yksikön abessiivi */
+
+        K_NTAIV_MNOM = 0x10    /* monikon nominatiivi */
+        K_NTAIV_MGEN = 0x11    /* monikon genetiivi */
+        K_NTAIV_MPAR = 0x12    /* monikon partitiivi */
+        K_NTAIV_MINE = 0x13    /* monikon inessiivi */
+        K_NTAIV_MELA = 0x14    /* monikon elatiivi */
+        K_NTAIV_MILL = 0x15    /* monikon illatiivi */
+        K_NTAIV_MADE = 0x16    /* monikon adessiivi */
+        K_NTAIV_MABL = 0x17    /* monikon ablatiivi */
+        K_NTAIV_MALL = 0x18    /* monikon allatiivi */
+        K_NTAIV_MESS = 0x19    /* monikon essiivi */
+        K_NTAIV_MTRA = 0x1A    /* monikon translatiivi */
+        K_NTAIV_MIST = 0x1B    /* monikon instruktiivi */
+        K_NTAIV_MABE = 0x1C    /* monikon abessiivi */
+        K_NTAIV_MCOM = 0x1D    /* monikon komitatiivi (ei persoonapäätettä) */
+
+    Tiedostossa k_ntaiv.c.
+
+
+extern int k_ntaiv_ok(kt_nomini vart);
+    Tarkistaa, onko 'vart' sopiva nominitaivutus. Yleensä tarkistaa vain,
+    onko se 0 vai ei. Jos KOSKUT_VERIFY on 1, k_ntaiv_ok tarkistaa myös
+    kt_nomtaiv:n oikeellisuuden.
+
+    Tiedostossa k_ntaiv.c.
+
+
+extern kt_koko k_aste_aste(kt_nomtaiv taiv, unsigned vahva,
+                           char *puskuri, kt_koko koko);
+    Kirjoittaa vahvan tai heikon asteen puskuriin kt_nomtaiv:n asteen
+    mukaisesti.
+
+    Tiedostossa k_aste.c.
+
+
+extern kt_koko k_aste_aste2(kt_nomtaiv taiv, unsigned vahva,
+                            char **puskuri, char *loppu);
+    Sama kuin yllä, mutta puskurin annetaan osoitin ja sen arvoa muutetaan
+    niin, että se osoittaa puskurin tilaan asteen jälkeen.
+
+    Tiedostossa k_aste.c.
+
+
+extern kt_koko k_nvart_luo(kt_nomtaiv taiv, unsigned vart,
+                           char *puskuri, kt_koko koko);
+    Kirjoittaa taivutusvartalon. vart on yksi seuraavista:
+
+        K_NVART_YV =  1      /* vahva yksikkövartalo */
+        K_NVART_YH =  2      /* heikko yksikkövartalo */
+        K_NVART_YN =  3      /* yksikön nominatiivin vartalo */
+        K_NVART_YP =  4      /* yksikön partitiivin vartalo */
+        K_NVART_YI =  5      /* yksikön illatiivin vartalo */
+        K_NVART_MV =  6      /* vahva monikkovartalo */
+        K_NVART_MH =  7      /* heikko monikkovartalo */
+        K_NVART_MG =  8      /* monikon genetiivin vartalo */
+        K_NVART_MP =  9      /* monikon partitiivin vartalo */
+        K_NVART_MI = 10      /* monikon illatiivin vartalo */
+
+    Tiedostossa k_nvart.c.
+
+
+extern kt_koko k_ntaiv_paate(kt_nomtaiv taiv, unsigned muoto,
+                             char *puskuri, kt_koko koko);
+    Kirjoittaa taivutusvartalon ja -päätteen. muoto on samaa muotoa kuin
+    aliohjelmassa k_ntaiv_taivuta.
+
+    Tiedostossa k_nvart.c.
+
+
+extern void k_nveik_alusta(kt_nomveik *veikkaus, unsigned monikot,
+                           const char *sana, kt_koko sana_pituus);
+    Alustaa nominitaivutuksen veikkaimen. kt_nomveik tulee varata omaan
+    tilaan, koska kirjasto ei voi varata sille tilaa muistiin.
+
+    'monikot' asetetaan nollaksi, jos monikkomuotoja ei tarvita. Jos monikko-
+    muotojenkin pitää olla oikein, monikkotuen pitää olla käännetty.
+
+    Annetun sanan tulee pysyä muistissa koko veikkaimen käytön ajan, ja sen
+    on oltava perusmuodossa (yksikön nominatiivi).
+
+    Tiedostossa k_nveik.c.
+
+
+extern unsigned k_nveik_vaihtoehtoja(const kt_nomveik *veikkaus);
+    Palauttaa montako arvausvaihtoehtoa on saatavilla. Jos niitä on 0,
+    taivutusta ei kyetty veikkaamaan. Jos niitä on vain yksi, veikkain on
+    valmis, ja tuloksen voi tarkistaa.
+
+    Muussa tapauksessa vaihtoehdot tulee tarkistaa alla käsitellyillä
+    aliohjelmilla ja oikea vaihtoehto valittava niiden avulla, kunnes
+    vaihtoehtoja on enää vain yksi. Oikeaa taivutusmuotoa voi kysyä
+    esimerkiksi käyttäjältä.
+
+    Tiedostossa k_nveik.c.
+
+
+extern unsigned k_nveik_arvausmuoto(const kt_nomveik *veikkaus);
+    Jos vaihtoehtoja on useampi kuin yksi, tämä palauttaa vaihtoehtojen
+    sanamuodon samassa muodossa kuin se annetaan k_ntaiv_taivuta:lle.
+
+    Ainoat mahdolliset palautusarvot ovat
+
+        K_NTAIV_YGEN = 0x01    /* yksikön genetiivi */
+        K_NTAIV_YPAR = 0x02    /* yksikön partitiivi */
+        K_NTAIV_YILL = 0x05    /* yksikön illatiivi */
+
+        K_NTAIV_MGEN = 0x11    /* monikon genetiivi */
+        K_NTAIV_MPAR = 0x12    /* monikon partitiivi */
+        K_NTAIV_MILL = 0x15    /* monikon illatiivi */
+
+    Tiedostossa k_nveik.c.
+
+
+extern kt_koko k_nveik_vaihtoehto(const kt_nomveik *veikkaus, unsigned numero,
+                                  char *puskuri, kt_koko puskuri_koko);
+    Palauttaa numeron määrittämän vaihtoehdon (jos vaihtoehtoja on esimerkiksi
+    kaksi, numero voi olla 0 tai 1) puskuriin.
+    
+    Vaihtoehtoja taataan olevan aina korkeintaan yhdeksän.
+
+    Tiedostossa k_nveik.c.
+
+
+extern void k_nveik_valitse(kt_nomveik *veikkaus, unsigned numero);
+    Valitsee numeron määrittämän vaihtoehdon (jos vaihtoehtoja on esimerkiksi
+    kaksi, numero voi olla 0 tai 1). Kun valinta on tehty, veikkaimen tila
+    etenee ja vaihtoehtojen lukumäärä on tarkistettava uudelleen.
+
+    Tiedostossa k_nveik.c.
+
+
+extern kt_nomini k_nveik_tulos(const kt_nomveik *veikkaus);
+    Palauttaa veikkaimen tuloksen nominitaivutuksena. Jos tulos ei vielä ole
+    valmis, palauttaa tyhjän taivutuksen.
+
+    Tiedostossa k_nveik.c.

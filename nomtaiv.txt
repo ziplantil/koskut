@@ -1,0 +1,323 @@
+Nominitaivutusluokat ja niiden vartalot
+
+    LLLLLL     KTSK             Asteeton        Asteellinen
+
+     1         valo             val|o           ko|kko : ko|kon
+     2         palvelu          palvel|u        --
+     3         valtio           valti|o         --
+     4         laatikko         --              laati|kko : laati|kon
+     5         risti            rist|i          ta|kki : ta|kin
+     6         paperi           paper|i         --
+     7         ovi              ov|i            tu|ki : tu|en
+     8         nalle            nall|e          nu|kke : nu|ken
+     9         kala             kal|a           pa|ta : pa|dan
+    10         koira            koir|a          ku|nta : ku|nnan
+    11         omena            omen|a          --
+    12         kulkija          kulkij|a        --
+    13         katiska          katisk|a        --
+    14         solakka          --              sola|kka : sola|kan
+    15         korkea           korke|a
+    16         vanhempi         --              vanhe|mpi : vanhe|mman
+    17         vapaa            vapa|a          --
+    18         maa              ma|a            --
+    19         suo              s|uo            --
+    20         filee            file|e          --
+    21         rosé             rosé|           --
+    22         parfait          parfait|        --
+    23         tiili            tiil|i          --
+    24         uni              un|i            --
+    25         toimi            toi|mi          --
+    26         pieni            pien|i          --
+    27         käsi             kä|si           --
+    28         kynsi            --              ky|nsi : ky|nnen
+    29         lapsi            la|psi          --
+    30         veitsi           vei|tsi         --
+    31         kaksi            ka|ksi          --
+    32         sisar            sis|ar          ty|tär : ty|ttären
+    33         kytkin           kytk|in         lii|tin : lii|ttimen
+    34         onneton          --              onne|ton : onne|ttoman
+    35         lämmin           --              lä|mmin : lä|mpimän
+    36         sisin            sisi|n          --
+    37         vasen            vase|n          --
+    38         nainen           nai|nen         --
+    39         vastaus          vastau|s        --
+    40         kalleus          kalleu|s        --
+    41         vieras           vier|as         kir|kas : kir|kkaan
+    42         mies             mie|s           --
+    43         ohut             oh|ut           i|mmyt : i|mpyen
+    44         kevät            kev|ät          --
+    45         kahdeksas        kahdeksa|s      --
+    46         tuhat            tuha|t          --
+    47         kuollut          kuoll|ut        --
+    48         hame             ham|e           ka|te : ka|tteen
+    49         askel            ask|el          ve|mmel : ve|mpeleen
+    *62        :koira           S:|             --
+    *63        :maa             E:|             --
+
+
+
+Astevaihtelut
+
+    AAAAAA     KTSK      Vaihtelu       Huomautukset
+
+     0         --
+     1         A         kk : k
+     2         B         pp : p
+     3         C         tt : t
+     4         D          k : (')
+     5         E          p : v
+     6         F          t : d
+     7         G         nk : ng
+     8         H         mp : mm
+     9         I         lt : ll
+    10         J         nt : nn
+    11         K         rt : rr
+    12         L          k : j
+    13         M          k : v
+
+    *28:                 gg : g
+    *29:                 bb : b
+    *30:                 dd : d
+    *31        Ei astevaihtelua.
+               Taivutusluokka 5, 6: nominatiivin yksikkö ei pääty i:hin.
+               Taivutusluokka 24, 26: partitiivin yksikkö päättyy aina A:han
+                                    (esim. merta, meressä)
+
+Pakolliset astevaihtelut (joillekin taivutusluokille)
+    Jos ei määritetä, taivutusluokka ei toimi oikein.
+
+    LLLLLL     KTSK             AAAA          Astevaihtelu    Huomautukset
+    
+    16         vanhempi          8 = 01000    *H (mp : mm)
+    27         käsi              6 = 00110    *F  (t : d)
+    34         onneton           3 = 00011    *C (tt : t)
+    36         sisin             8 = 01000    *H (mp : mm)
+    37         vasen             8 = 01000    *H (mp : mm)
+    40         kalleus           6 = 00110    *F  (t : d)
+    45         kahdeksas        10 = 01010    *J (nt : nn)
+    46         tuhat            10 = 01010    *J (nt : nn)
+
+    LLLLLL     KTSK             Vaihtoehdot
+    
+    28         kynsi             9 (ls), 10 (ns) tai 11 (rs)
+
+    LLLLLL     KTSK             AAAA
+
+     2         palvelu           0 = 00000 (ei astevaihtelua)
+     3         valtio            0 = 00000 (ei astevaihtelua)
+     6         paperi            0 = 00000 (ei astevaihtelua) (*1)
+    11         omena             0 = 00000 (ei astevaihtelua)
+    12         kulkija           0 = 00000 (ei astevaihtelua)
+    13         katiska           0 = 00000 (ei astevaihtelua)
+    15         korkea            0 = 00000 (ei astevaihtelua)
+    17         vapaa             0 = 00000 (ei astevaihtelua)
+    18         maa               0 = 00000 (ei astevaihtelua)
+    19         suo               0 = 00000 (ei astevaihtelua)
+    20         filee             0 = 00000 (ei astevaihtelua)
+    21         rosé              0 = 00000 (ei astevaihtelua)
+    22         parfait           0 = 00000 (ei astevaihtelua)
+    23         tiili             0 = 00000 (ei astevaihtelua)
+    24         uni               0 = 00000 (ei astevaihtelua)
+    25         toimi             0 = 00000 (ei astevaihtelua)
+    26         pieni             0 = 00000 (ei astevaihtelua)
+    29         lapsi             0 = 00000 (ei astevaihtelua)
+    30         veitsi            0 = 00000 (ei astevaihtelua)
+    31         kaksi             0 = 00000 (ei astevaihtelua)
+    38         nainen            0 = 00000 (ei astevaihtelua)
+    39         vastaus           0 = 00000 (ei astevaihtelua)
+    42         mies              0 = 00000 (ei astevaihtelua)
+    44         kevät             0 = 00000 (ei astevaihtelua)
+    47         kuollut           0 = 00000 (ei astevaihtelua)
+    62         :koira            0 = 00000 (ei astevaihtelua)
+    63         :maa              0 = 00000 (ei astevaihtelua)
+
+    (*1) Erikoisarvo 31 sallitaan myös
+
+Taulukko sallituista astevaihteluista
+
+    LLLLLL     KTSK             -  A  B  C  D  E  F  G  H  I  J  K  L  M
+
+     1         valo             @  @  @  @  @  @  @  @  @  @  @  @  @  @
+     2         palvelu          @  -  -  -  -  -  -  -  -  -  -  -  -  -
+     3         valtio           @  -  -  -  -  -  -  -  -  -  -  -  -  -
+     4         laatikko         -  @  @  @  -  -  -  -  -  -  -  -  -  -
+     5         risti            @  @  @  @  @  @  @  @  @  @  @  @  @  -
+     6         paperi           @  -  -  -  -  -  -  -  -  -  -  -  -  -
+     7         ovi              @  @  @  @  @  @  @  @  @  @  @  @  @  -
+     8         nalle            @  @  @  @  @  @  @  @  @  @  @  @  @  -
+     9         kala             @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    10         koira            @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    11         omena            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    12         kulkija          @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    13         katiska          @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    14         solakka          -  @  @  @  -  -  -  -  -  -  -  -  -  -
+    15         korkea           @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    16         vanhempi         -  -  -  -  -  -  -  -  @  -  -  -  -  -
+    17         vapaa            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    18         maa              @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    19         suo              @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    20         filee            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    21         rosé             @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    22         parfait          @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    23         tiili            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    24         uni              @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    25         toimi            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    26         pieni            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    27         käsi             -  -  -  -  -  -  @  -  -  -  -  -  -  -
+    28         kynsi            -  -  -  -  -  -  -  -  -  @  @  @  -  -
+    29         lapsi            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    30         veitsi           @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    31         kaksi            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    32         sisar            @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    33         kytkin           @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    34         onneton          -  -  -  @  -  -  -  -  -  -  -  -  -  -
+    35         lämmin           -  -  @  -  -  -  -  -  @  -  -  -  -  -
+    36         sisin            -  -  -  -  -  -  -  -  @  -  -  -  -  -
+    37         vasen            -  -  -  -  -  -  -  -  @  -  -  -  -  -
+    38         nainen           @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    39         vastaus          @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    40         kalleus          -  -  -  -  -  -  @  -  -  -  -  -  -  -
+    41         vieras           @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    42         mies             @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    43         ohut             @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    44         kevät            @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    45         kahdeksas        -  -  -  -  -  -  -  -  -  -  @  -  -  -
+    46         tuhat            -  -  -  -  -  -  -  -  -  -  @  -  -  -
+    47         kuollut          @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    48         hame             @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    49         askel            @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    *62        :koira           @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    *63        :maa             @  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+    (*) Astevaihteluiden 28-30 tuki on yhtä kuin jos kaikki A-C tuetaan.
+
+
+
+Vartalovokaalit
+
+    LLLLLL     KTSK             Vartalovokaali
+
+     1         valo             Sanan viimeinen vokaali: O, U, Y tai Ö
+     2         palvelu          Sanan viimeinen vokaali: O, U, Y tai Ö
+     3         valtio           Sanan viimeinen vokaali: O, Ö tai E
+     4         laatikko         Sanan viimeinen vokaali: O, U, Y tai Ö
+     5         risti            Tulee olla I
+     6         paperi           Tulee olla I
+     7         ovi              Tulee olla E
+     8         nalle            Tulee olla E
+     9         kala             Toiseksi viimeinen vokaali (*1)
+    10         koira            Toiseksi viimeinen vokaali (*1)
+    11         omena            Vokaalisoinnun mukaisesti A tai Ä
+    12         kulkija          Vokaalisoinnun mukaisesti A tai Ä
+    13         katiska          Vokaalisoinnun mukaisesti A tai Ä
+    14         solakka          Vokaalisoinnun mukaisesti A tai Ä
+    15         korkea           Vokaalisoinnun mukaisesti A tai Ä
+    16         vanhempi         Vokaalisoinnun mukaisesti A tai Ä
+    17         vapaa            Sanan viimeinen vokaali: A, O, U, E tai Y
+    18         maa              Sanan viimeinen vokaali
+    19         suo              Sanan viimeinen vokaali
+    20         filee            Sanan viimeinen vokaali
+    21         rosé             Illatiivimuodon viimeinen vokaali
+    22         parfait          Illatiivimuodon viimeinen vokaali
+    23         tiili            Tulee olla E
+    24         uni              Tulee olla E
+    25         toimi            Tulee olla E
+    26         pieni            Tulee olla E
+    27         käsi             Tulee olla E
+    28         kynsi            Tulee olla E
+    29         lapsi            Tulee olla E
+    30         veitsi           Tulee olla E
+    31         kaksi            Tulee olla E
+    32         sisar            Loppukonsonantti ja sitä edeltävä vokaali (*2)
+    33         kytkin           Sanan viimeinen vokaali: A, I, U tai Ä
+    34         onneton          Vokaalisoinnun mukaisesti O tai Ö
+    35         lämmin           Sanan viimeinen vokaali
+    36         sisin            Vokaalisoinnun mukaisesti A tai Ä
+    37         vasen            Vokaalisoinnun mukaisesti A tai Ä
+    38         nainen           Tulee olla E
+    39         vastaus          Tulee olla E
+    40         kalleus          Tulee olla E
+    41         vieras           Sanan viimeinen vokaali
+    42         mies             Tulee olla E
+    43         ohut             Perusmuodon viimeinen vokaali
+    44         kevät            Vokaalisoinnun mukaisesti A tai Ä
+    45         kahdeksas        Tulee olla E
+    46         tuhat            Tulee olla E
+    47         kuollut          Vokaalisoinnun mukaisesti U tai Y
+    48         hame             Sanan viimeinen vokaali
+    49         askel            Loppukonsonantti ja sitä edeltävä vokaali (*2)
+    *62        :koira           Illatiivia edeltävä vokaali
+    *63        :maa             Illatiivia edeltävä vokaali
+
+    (*1) kala- ja koira-sanan vartalovokaalilla on väliä vain, jos se on I ja
+         astevaihtelu on tyyppiä D. Tällöin lisätään heittomerkki monikko-
+         muotoihin (esim. reikä > rei’issä) tai viimeinen i muutetaan j:ksi
+         nominia taivutettaessa, jos sana on takainen (esim. aika > ajan).
+         Jos se ei ole I, vartalovokaaliksi kannattaa asettaa A.
+    (*2) sisar- ja askel-sanoilla vartalovokaalin (VVV) kohdalla on konsonantti
+         ja vartalovokaalitieto:
+            V = 000             konsonantti L, vokaali A/Ä (soinnusta riippuen)
+            V = 001             konsonantti N, vokaali A/Ä (soinnusta riippuen)
+            V = 010             konsonantti R, vokaali A/Ä (soinnusta riippuen)
+            V = 011             ei sallittu
+            V = 100             konsonantti L, vokaali E
+            V = 101             konsonantti N, vokaali E
+            V = 110             konsonantti R, vokaali E
+            V = 111             ei sallittu
+
+Taulukko sallituista vartalovokaaleista
+
+    LLLLLL     KTSK             A  E  I  O  U  Y  Ä  Ö
+
+     1         valo             -  -  -  @  @  @  -  @
+     2         palvelu          -  -  -  @  @  @  -  @
+     3         valtio           -  @  -  @  -  @  -  -
+     4         laatikko         -  -  -  @  @  @  -  @
+     5         risti            -  -  @  -  -  -  -  -
+     6         paperi           -  -  @  -  -  -  -  -
+     7         ovi              -  @  -  -  -  -  -  -
+     8         nalle            -  @  -  -  -  -  -  -
+     9         kala             @  -  @  -  -  -  @  -
+    10         koira            @  -  @  -  -  -  @  -   (*1)
+    11         omena            @  -  -  -  -  -  @  -   (*1)
+    12         kulkija          @  -  -  -  -  -  @  -
+    13         katiska          @  -  -  -  -  -  @  -
+    14         solakka          @  -  -  -  -  -  @  -
+    15         korkea           @  -  -  -  -  -  @  -
+    16         vanhempi         @  -  -  -  -  -  @  -
+    17         vapaa            @  @  -  @  @  @  -  -
+    18         maa              @  @  @  @  @  @  @  @
+    19         suo              -  @  -  @  -  -  -  @
+    20         filee            @  @  -  @  @  @  -  @
+    21         rosé             @  @  @  @  @  @  @  @
+    22         parfait          @  @  @  @  @  @  @  @
+    23         tiili            -  @  -  -  -  -  -  -
+    24         uni              -  @  -  -  -  -  -  -
+    25         toimi            -  @  -  -  -  -  -  -
+    26         pieni            -  @  -  -  -  -  -  -
+    27         käsi             -  @  -  -  -  -  -  -
+    28         kynsi            -  @  -  -  -  -  -  -
+    29         lapsi            -  @  -  -  -  -  -  -
+    30         veitsi           -  @  -  -  -  -  -  -
+    31         kaksi            -  @  -  -  -  -  -  -
+    32         sisar            @  @  -  -  -  -  @  -   (*2)
+    33         kytkin           @  -  @  -  @  -  @  -
+    34         onneton          -  -  -  @  -  -  -  @
+    35         lämmin           @  -  @  -  -  -  -  -
+    36         sisin            @  -  -  -  -  -  @  -
+    37         vasen            @  -  -  -  -  -  @  -
+    38         nainen           -  @  -  -  -  -  -  -
+    39         vastaus          -  @  -  -  -  -  -  -
+    40         kalleus          -  @  -  -  -  -  -  -
+    41         vieras           @  @  @  @  @  -  @  -
+    42         mies             -  @  -  -  -  -  -  -
+    43         ohut             -  -  -  -  @  @  -  -
+    44         kevät            @  -  -  -  -  -  @  -
+    45         kahdeksas        -  @  -  -  -  -  -  -
+    46         tuhat            -  @  -  -  -  -  -  -
+    47         kuollut          -  -  -  -  @  @  -  -
+    48         hame             -  @  @  @  -  -  -  -
+    49         askel            @  @  -  -  -  -  @  -   (*2)
+    *62        :koira           @  @  @  @  @  @  @  @
+    *63        :maa             @  @  @  @  @  @  @  @
+
