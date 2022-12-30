@@ -55,10 +55,6 @@ Astevaihtelut
     *28:                 gg : g
     *29:                 bb : b
     *30:                 dd : d
-    *31        Ei astevaihtelua.
-               Taivutusluokka 5, 6: nominatiivin yksikkö ei pääty i:hin.
-               Taivutusluokka 24, 26: partitiivin yksikkö päättyy aina A:han
-                                    (esim. merta, meressä)
 
 Pakolliset astevaihtelut (joillekin taivutusluokille)
     Jos ei määritetä, taivutusluokka ei toimi oikein.
