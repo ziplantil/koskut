@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
             tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-30
+            versio: 2022-12-31
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_ntaiv.c - nominin taivutus                                               */
@@ -9,7 +9,7 @@
 #include "koskut.h"
 #include "koskutio.h"
 
-static const unsigned taiv_vartalot[] = {
+static const unsigned char taiv_vartalot[] = {
     K_NVART_YN, K_NVART_YH, K_NVART_YP, K_NVART_YH,
     K_NVART_YH, K_NVART_YI, K_NVART_YH, K_NVART_YH,
     K_NVART_YH, K_NVART_YV, K_NVART_YH, 0,
@@ -22,10 +22,6 @@ static const unsigned taiv_vartalot[] = {
     K_NVART_MH, K_NVART_MV
 #endif
 };
-
-K_INL void k_kopioi(char *puskuri, const char *sana, kt_koko koko) {
-    while (koko--) *puskuri++ = *sana++;
-}
 
 static const kt_merkki tp_mnom[] = { K_FI_T, K_FI_NA };
 static const kt_merkki tp_ygen[] = { K_FI_N, K_FI_NA };
@@ -230,11 +226,8 @@ static const unsigned char vokaali_ok[64] = {
 #define K_ASTE(taiv)      (((taiv) >> 3) & 31)
 #define K_VOKAALI(taiv)   ((taiv) & 7)
 
-int k_ntaiv_ok(kt_nomini vart) {
-    kt_nomtaiv taiv = vart.taiv;
+int k_ntaiv_ok2(kt_nomtaiv taiv) {
     if (taiv == 0) return 0;
-    /*printf("(%u) <%u> %08lX, %02X (A=%u, V=%u)\n", K_LUOKKA(taiv), aste_ok_k[K_LUOKKA(taiv)], aste_ok[aste_ok_k[K_LUOKKA(taiv)]], vokaali_ok[K_LUOKKA(taiv)], K_ASTE(taiv), K_VOKAALI(taiv));
-    */
 #if KOSKUT_VERIFY
     if (!((aste_ok[aste_ok_k[K_LUOKKA(taiv)]] >> K_ASTE(taiv)) & 1))
         return 0;
@@ -242,6 +235,10 @@ int k_ntaiv_ok(kt_nomini vart) {
         return 0;
 #endif
     return 1;
+}
+
+int k_ntaiv_ok(kt_nomini vart) {
+    return k_ntaiv_ok2(vart.taiv);
 }
 
 /* yksikön heikot vartalot, monikossa sama mutta ^ 3
@@ -252,6 +249,10 @@ int k_ntaiv_ok(kt_nomini vart) {
     =0x 1    D    D    A
 */
 static const unsigned int tvh_y = 0x1DDAU;
+
+K_INL void k_kopioi(char *puskuri, const char *sana, kt_koko koko) {
+    while (koko--) *puskuri++ = *sana++;
+}
 
 /* taivuttaa nominia taivutusvartalon mukaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
@@ -278,10 +279,10 @@ kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
     leikkaa = sana_pituus - leikkaa;
 
     if (leikkaa > puskuri_koko) {
-        k_kopioi(puskuri, sana, puskuri_koko);
+        if (puskuri != sana) k_kopioi(puskuri, sana, puskuri_koko);
         puskuri = loppu;
     } else {
-        k_kopioi(puskuri, sana, leikkaa);
+        if (puskuri != sana) k_kopioi(puskuri, sana, leikkaa);
         puskuri += leikkaa;
     }
 
@@ -321,4 +322,14 @@ kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
     }
 
     return leikkaa + k_ntaiv_paate(taiv, muoto, puskuri, loppu - puskuri);
+}
+
+kt_koko k_ntaiv_taivuta2(kt_nomtaiv taiv, unsigned muoto,
+                        const char *sana, kt_koko sana_pituus,
+                        char *puskuri, kt_koko puskuri_koko) {
+    kt_nomini nom;
+    nom.leikkaa = 0;
+    nom.taiv = taiv;
+    return k_ntaiv_taivuta(nom, muoto, sana, sana_pituus,
+                           puskuri, puskuri_koko);
 }

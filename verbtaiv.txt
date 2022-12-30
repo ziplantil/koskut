@@ -1,0 +1,186 @@
+Verbitaivutusluokat ja niiden vartalot
+
+    LLLLL      KTSK             1. inf.         Asteeton        Asteellinen
+
+     1         52 sanoa         san|oa          san|o-          huuh|to-
+     2         53 muistaa       muist|aa        muist|a-        pi|tä-
+     3         54 huutaa        huu|taa         --              huu|ta-
+     4         55 soutaa        sou|taa         --              sou|ta-
+     5         56 kaivaa        kaiv|aa         kaiv|a-         raa|ta-
+     6         57 saartaa       saa|rtaa        --              saa|rta-
+     7         58 laskea        lask|ea         lask|e-         po|te-
+     8         59 tuntea        tu|ntea         --              tu|nte-
+     9         60 lähteä        lä|hteä         --              läh|te-
+    10         61 sallia        sall|ia         sall|i-         poh|ti-
+    11         62 voida         voi|da          voi|-           --
+    12         63 saada         sa|ada          sa|a-           --
+    13         64 juoda         j|uoda          j|uo-           --
+    14         65 käydä         kä|ydä          kä|y-           --
+    15         66 rohkaista     rohka|ista      rohka|ise-      va|pise-
+    16         67 tulla         tu|lla          t|ule-          suu|tele-
+    17         68 tupakoida     tupakoi|da      tupakoi|-       --
+    18         69 valita        vali|ta         vali|tse-       --
+    19         70 juosta        juo|sta         juo|kse-        --
+    20         71 nähdä         nä|hdä          nä|ke-          --
+    21         72 vanheta       vanh|eta        vanh|ene-       e|tene-
+    22         73 salata        sala|ta         sal|aa-         la|taa-
+    23         74 katketa       katk|eta        katk|ea-        to|tea-
+    24         75 selvitä       selv|itä        selv|iä-        muo|toa-
+    25         76 taitaa        tai|taa         --              tai|ta-
+    26        *77 kumajaa       --              kuma|ja-        --
+
+    (*) Taivutusparadigma virallisesti vaillinainen
+        Luokka 78/kaikaa: käytä luokkaa 56/kaivaa
+
+
+Astevaihtelut
+
+    AAAAAA     KTSK      Vaihtelu       Huomautukset
+
+     0         --
+     1         A         kk : k
+     2         B         pp : p
+     3         C         tt : t
+     4         D          k : (')
+     5         E          p : v
+     6         F          t : d
+     7         G         nk : ng
+     8         H         mp : mm
+     9         I         lt : ll
+    10         J         nt : nn
+    11         K         rt : rr
+    12         L          k : j
+    13         M          k : v
+
+    *28:                 gg : g
+    *29:                 bb : b
+    *30:                 dd : d
+    *31        Ei astevaihtelua.
+               Taivutusluokka 5, 6: nominatiivin yksikkö ei pääty i:hin.
+               Taivutusluokka 24, 26: partitiivin yksikkö päättyy aina A:han
+                                    (esim. merta, meressä)
+
+Pakolliset astevaihtelut (joillekin taivutusluokille)
+    Jos ei määritetä, taivutusluokka ei toimi oikein.
+
+    LLLLL      KTSK             AAAA          Astevaihtelu    Huomautukset
+
+     9         60 lähteä         6 = 00110    *F  (t : d)
+    20         71 nähdä          4 = 00100    *D  (k : )
+    25         76 taitaa         6 = 00110    *F  (t : d)
+
+    LLLLL      KTSK             Vaihtoehdot
+
+     3         54 huutaa         6 (t:d), 9 (lt:ln), 10 (nt:nn), 11 (rt:rr)
+     4         55 soutaa         6 (t:d), 9 (lt:ln), 10 (nt:nn), 11 (rt:rr)
+     6         57 saartaa        6 (t:d), 9 (lt:ln), 10 (nt:nn), 11 (rt:rr)
+     8         59 tuntea         9 (lt:ln), 10 (nt:nn), 11 (rt:rr)
+
+    LLLLL      KTSK             AAAA
+
+    10         62 voida          0 = 00000 (ei astevaihtelua)
+    11         63 saada          0 = 00000 (ei astevaihtelua)
+    12         64 juoda          0 = 00000 (ei astevaihtelua)
+    13         65 käydä          0 = 00000 (ei astevaihtelua)
+    16         68 tupakoida      0 = 00000 (ei astevaihtelua)
+    17         69 valita         0 = 00000 (ei astevaihtelua)
+    18         70 juosta         0 = 00000 (ei astevaihtelua)
+    19         77 kumajaa        0 = 00000 (ei astevaihtelua)
+
+Taulukko sallituista astevaihteluista
+
+    LLLLL      KTSK             -  A  B  C  D  E  F  G  H  I  J  K  L  M
+
+     1         52 sanoa         @  @  @  @  @  @  @  @  @  @  @  @  @  @
+     2         53 muistaa       @  -  -  -  -  -  -  -  -  -  -  -  -  -
+     3         54 huutaa        -  -  -  -  -  -  @  -  -  @  @  @  -  -
+     4         55 soutaa        -  -  -  -  -  -  @  -  -  @  @  @  -  -
+     5         56 kaivaa        @  @  @  @  @  @  @  @  @  @  @  @  @  -
+     6         57 saartaa       -  -  -  -  -  -  @  -  -  @  @  @  -  -
+     7         58 laskea        @  @  @  @  @  @  @  @  @  @  @  @  @  -
+     8         59 tuntea        -  -  -  -  -  -  -  -  -  @  @  @  -  -
+     9         60 lähteä        -  -  -  -  -  -  @  -  -  -  -  -  -  -
+    10         61 sallia        @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    11         62 voida         @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    12         63 saada         @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    13         64 juoda         @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    14         65 käydä         @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    15         66 rohkaista     @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    16         67 tulla         @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    17         68 tupakoida     @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    18         69 valita        @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    19         70 juosta        @  -  -  -  -  -  -  -  -  -  -  -  -  -
+    20         71 nähdä         -  @  -  -  -  -  -  -  -  -  -  -  -  -
+    21         72 vanheta       @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    22         73 salata        @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    23         74 katketa       @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    24         75 selvitä       @  @  @  @  @  @  @  @  @  @  @  @  @  -
+    25         76 taitaa        -  -  -  -  -  -  @  -  -  -  -  -  -  -
+    26        *77 kumajaa       @  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+    (*) Astevaihteluiden 28-30 tuki on yhtä kuin jos kaikki A-C tuetaan.
+
+
+
+Vartalovokaalit
+
+    LLLLL      KTSK             Vartalovokaali
+
+     1         52 sanoa         Verbivartalon viimeinen vokaali: O, U, Y tai Ö
+     2         53 muistaa       Verbivartalon viimeinen vokaali: A tai Ä
+     3         54 huutaa        Verbivartalon viimeinen vokaali: A tai Ä
+     4         55 soutaa        Verbivartalon viimeinen vokaali: A tai Ä
+     5         56 kaivaa        Verbivartalon viimeinen vokaali: A tai Ä
+     6         57 saartaa       Verbivartalon viimeinen vokaali: A tai Ä
+     7         58 laskea        Tulee olla E
+     8         59 tuntea        Tulee olla E
+     9         60 lähteä        Tulee olla E
+    10         61 sallia        Tulee olla I
+    11         62 voida         Tulee olla I
+    12         63 saada         Vartalon viimeinen vokaali
+    13         64 juoda         Vartalon viimeinen vokaali: E, O tai Ö
+    14         65 käydä         Tulee olla Y
+    15         66 rohkaista     Vartalon toiseksi viimeinen vokaali
+    16         67 tulla         Vartalon toiseksi viimeinen vokaali
+    17         68 tupakoida     Tulee olla E
+    18         69 valita        Tulee olla E
+    19         70 juosta        Tulee olla E
+    20         71 nähdä         Tulee olla E
+    21         72 vanheta       Vartalon toiseksi viimeinen vokaali
+    22         73 salata        Verbivartalon viimeinen vokaali: A tai Ä
+    23         74 katketa       Vartalon toiseksi viimeinen vokaali
+    24         75 selvitä       Vartalon toiseksi viimeinen vokaali
+    25         76 taitaa        Vokaalisoinnun mukaisesti A tai Ä
+    26        *77 kumajaa       Vokaalisoinnun mukaisesti A tai Ä
+
+Taulukko sallituista vartalovokaaleista
+
+    LLLLL      KTSK             A  E  I  O  U  Y  Ä  Ö
+
+     1         52 sanoa         -  -  -  @  @  @  -  @
+     2         53 muistaa       @  -  -  -  -  -  @  -
+     3         54 huutaa        @  -  -  -  -  -  @  -
+     4         55 soutaa        @  -  -  -  -  -  @  -
+     5         56 kaivaa        @  -  -  -  -  -  @  -
+     6         57 saartaa       @  -  -  -  -  -  @  -
+     7         58 laskea        -  @  -  -  -  -  -  -
+     8         59 tuntea        -  @  -  -  -  -  -  -
+     9         60 lähteä        -  @  -  -  -  -  -  -
+    10         61 sallia        -  -  @  -  -  -  -  -
+    11         62 voida         -  -  @  -  -  -  -  -
+    12         63 saada         @  @  @  @  @  @  @  @
+    13         64 juoda         -  @  -  @  -  -  -  @
+    14         65 käydä         -  -  -  -  -  @  -  -
+    15         66 rohkaista     @  @  @  @  @  @  @  @
+    16         67 tulla         @  @  @  @  @  @  @  @
+    17         68 tupakoida     -  @  -  -  -  -  -  -
+    18         69 valita        -  @  -  -  -  -  -  -
+    19         70 juosta        -  @  -  -  -  -  -  -
+    20         71 nähdä         -  @  -  -  -  -  -  -
+    21         72 vanheta       @  @  @  @  @  @  @  @
+    22         73 salata        @  -  -  -  -  -  @  -
+    23         74 katketa       @  @  @  @  @  @  @  @
+    24         75 selvitä       @  @  @  @  @  @  @  @
+    25         76 taitaa        @  -  -  -  -  -  @  -
+    26        *77 kumajaa       @  -  -  -  -  -  @  -
+

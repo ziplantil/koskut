@@ -85,7 +85,7 @@ K_INL kt_merkki k_vokaali_lue(const char *c) {
     return K_FI_NA;
 }
 
-static int kt_astearkv(const char *p0, const char **pp, unsigned aste) {
+static int k_astearkv(const char *p0, const char **pp, unsigned aste) {
     const char *p = *pp;
 
     switch (aste) {
@@ -150,7 +150,7 @@ static int kt_astearkv(const char *p0, const char **pp, unsigned aste) {
     return 1;
 }
 
-static int kt_astearkh(const char *p0, const char **pp, unsigned aste) {
+static int k_astearkh(const char *p0, const char **pp, unsigned aste) {
     const char *p = *pp;
 
     switch (aste) {
@@ -241,7 +241,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
          && merkki != K_FI_Y && merkki != K_FI_OE) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
 
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(merkki);
         if (aste == 4) {
             /* tarvitaanko heittomerkkiä? liuku > liu’un */
@@ -276,7 +276,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         if (aste != 1 && aste != 2 && aste != 3) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
 
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(merkki);
         break;
 
@@ -290,7 +290,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
                 goto virhe;
         }
 
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(K_FI_I);
         break;
 
@@ -317,20 +317,20 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         aste = 0;
     case 7: /* ovi */
         if (K_INB(poikki, sana) != K_FI_I) goto virhe;
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(K_FI_E);
         break;
 
     case 8: /* nalle */
         if (K_INB(poikki, sana) != K_FI_E) goto virhe;
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(K_FI_E);
         break;
 
     case 9: /* kala */
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_A && merkki != K_FI_AE) goto virhe;
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali = k_vokaali_pakkaa(merkki);
 
@@ -353,7 +353,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
     case 10: /* koira */
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_A && merkki != K_FI_AE) goto virhe;
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali = k_vokaali_pakkaa(merkki);
 
@@ -388,7 +388,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_A && merkki != K_FI_AE) goto virhe;
         if (aste != 1 && aste != 2 && aste != 3) goto virhe;
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali = k_vokaali_pakkaa(merkki);
         break;
@@ -396,7 +396,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
     case 16: /* vanhempi */
         if (K_INB(poikki, sana) != K_FI_I) goto virhe;
         aste = 8; /* mp:mm */
-        if (!kt_astearkv(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkv(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(sointu ? K_FI_AE : K_FI_A);
         break;
 
@@ -504,7 +504,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_A && merkki != K_FI_AE
                              && merkki != K_FI_E) goto virhe;
-        if (!kt_astearkh(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkh(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali |= merkki == K_FI_E ? 4 : 0;
         break;
@@ -516,7 +516,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         if (K_INB(poikki, sana) != K_FI_N) goto virhe;
         merkki = K_INB(poikki, sana);
         if (!k_vokaali_onko(merkki)) goto virhe;
-        if (!kt_astearkh(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkh(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali = k_vokaali_pakkaa(merkki);
         break;
@@ -554,7 +554,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         if (K_INB(poikki, sana) != K_FI_S) goto virhe;
         merkki = K_INB(poikki, sana);
         if (!k_vokaali_onko(merkki)) goto virhe;
-        if (!kt_astearkh(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkh(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali = k_vokaali_pakkaa(merkki);
         break;
@@ -569,7 +569,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         if (K_INB(poikki, sana) != K_FI_T) goto virhe;
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_U && merkki != K_FI_Y) goto virhe;
-        if (!kt_astearkh(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkh(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali = k_vokaali_pakkaa(merkki);
         break;
@@ -606,7 +606,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
     case 48: /* hame */
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_E && merkki != K_FI_I) goto virhe;
-        if (!kt_astearkh(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkh(sana, &poikki, aste)) goto virhe;
         vokaali = k_vokaali_pakkaa(merkki);
         break;
 
@@ -623,7 +623,7 @@ kt_nomini k_nomini_luo(const char *sana, unsigned luokka,
         merkki = K_INB(poikki, sana);
         if (merkki != K_FI_A && merkki != K_FI_AE
                              && merkki != K_FI_E) goto virhe;
-        if (!kt_astearkh(sana, &poikki, aste)) goto virhe;
+        if (!k_astearkh(sana, &poikki, aste)) goto virhe;
         k_vokaali_sointu(&sointu, merkki);
         vokaali |= merkki == K_FI_E ? 4 : 0;
         break;
@@ -664,6 +664,7 @@ int main(int argc, char *argv[]) {
     kt_nomini nomvart;
     char c[16], *p;
 
+    puts("Syötä sana perusmuodossa (yksikön nominatiivi).");
     printf("Sana? ");
     fflush(stdout);
     if (!fgets(sana, sizeof(sana), stdin))

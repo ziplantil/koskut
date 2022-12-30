@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
             tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-30
+            versio: 2022-12-31
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_nveik.c - nominiveikkain                                                 */

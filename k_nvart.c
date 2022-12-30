@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
             tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-30
+            versio: 2022-12-31
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_nvart.c - nominivartalot                                                 */
@@ -286,11 +286,8 @@ static kt_koko k_vartalo(kt_nomtaiv taiv, char **p_puskuri, char *loppu,
                          unsigned char pvart) {
     kt_merkki m;
     kt_koko n = 0;
-    const kt_merkki *vart;
     char *puskuri = *p_puskuri;
-
-    if (!pvart) return 0;
-    vart = &paatteet_data[pvart];
+    const kt_merkki *vart = &paatteet_data[pvart];
 
     while ((m = *vart++) != K_0) {
         switch (m) {
@@ -755,7 +752,7 @@ static kt_koko k_nvart_luo2(kt_nomtaiv taiv, unsigned vart,
 
 
 kt_koko k_nvart_luo(kt_nomtaiv taiv, unsigned vart,
-                     char *puskuri, kt_koko koko) {
+                    char *puskuri, kt_koko koko) {
     return k_nvart_luo2(taiv, vart, &puskuri, puskuri + koko);
 }
 
