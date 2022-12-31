@@ -43,14 +43,14 @@ kirjasto olettaa, että sen mukaan linkataan tasan yksi seuraavista kirjastoista
   _olla_, _seistä_, _virkkaa_). Koskutta käyttävän ohjelman odotetaan
   toteuttavan näistä taivutuksista ne, joita se tarvitsee:
   * _auer_-sanassa on epäsäännöllinen astevaihtelu t : 0. Se tulee
-    esittää muodossa _auder_ (49), mutta nominatiivin ja partitiivin yksikkö
+    esittää muodossa _auder_ (49*F), mutta nominatiivin ja partitiivin yksikkö
     periytyykin _auer_-muodosta.
   * _olla_-verbi on yleensä luokkaa 67, mutta yksikön ja monikon
     kolmannen persoonan indikatiivin preesensmuodot ovatkin _on_ ja _ovat_,
-    ei *_ole_ ja *_olevat_. Potentiaalin aktiivin muodot perustuvat vartaloon
+    ei *_olee_ ja *_olevat_. Potentiaalin aktiivin muodot perustuvat vartaloon
     _liene_- (64).
   * _seistä_-verbi taipuu kuin luokassa 66, mutta sillä ei ole
     kaikkia muotoja (jotkin muodot ovat _seisoa_-verbiltä).
   * _virkkaa_-verbi on harvinainen, mutta se tulee taivuttaa eri muodoissa.
-    Yleensä muodot ovat luokkaa 56*A, mutta vokaalisointu on passiivi-
-    muodoissa etinen, muuten takainen.
+    Yleensä muodot ovat luokkaa 56*A, mutta vokaalisointu on
+    passiivimuodoissa etinen, muuten takainen.
