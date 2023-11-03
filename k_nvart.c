@@ -310,7 +310,7 @@ static kt_koko k_vartalo(kt_nomtaiv taiv, char **p_puskuri, char *loppu,
         case K_KV:
         case K_KH:
             n += k_aste_aste2(taiv, m == K_KV, &puskuri, loppu);
-            break;
+            continue;
         case K_KYNSI_K:
             m = sisar_kons[K_ASTE(taiv) - 9];
             break;
@@ -508,7 +508,7 @@ static const unsigned char vartalot_mpih[64] = {
 /*    32     33     34     35     36     37     38     39  */
     0000U, 0000U, 0000U, 0000U, 0003U, 0003U, 0000U, 0000U,
 /*    40     41     42     43     44     45     46     47  */
-    0000U, 0230U, 0000U, 0230U, 0230U, 0020U, 0020U, 0230U,
+    0000U, 0230U, 0000U, 0230U, 0230U, 0000U, 0020U, 0230U,
 /*    48     49                                            */
     0230U, 0310U,     0,     0,     0,     0,     0,     0,
 /*                                              62     63  */

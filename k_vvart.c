@@ -351,7 +351,7 @@ static kt_koko k_vvartalo(kt_verbtaiv taiv, char **p_puskuri, char *loppu,
         case K_KV:
         case K_KH:
             n += k_aste_aste2(taiv, m == K_KV, &puskuri, loppu);
-            break;
+            continue;
         case K_KHX:
             if (K_ASTE(taiv) < 9) continue;
             m = v_xkons[K_ASTE(taiv) - 9];

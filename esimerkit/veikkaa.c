@@ -135,8 +135,8 @@ int main(int argc, char *argv[]) {
         taivuta_ja_tulosta(sana, nom, K_NTAIV_MALL, "mon. allatiivi");
         taivuta_ja_tulosta(sana, nom, K_NTAIV_MESS, "mon. essiivi");
         taivuta_ja_tulosta(sana, nom, K_NTAIV_MTRA, "mon. translatiivi");
-        taivuta_ja_tulosta(sana, nom, K_NTAIV_MIST, "mon. instruktiivi");
         taivuta_ja_tulosta(sana, nom, K_NTAIV_MABE, "mon. abessiivi");
+        taivuta_ja_tulosta(sana, nom, K_NTAIV_MIST, "mon. instruktiivi");
         taivuta_ja_tulosta(sana, nom, K_NTAIV_MCOM, "mon. komitatiivi");
     }
 #endif

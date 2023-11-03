@@ -138,7 +138,7 @@ extern kt_koko k_nvart_luo(kt_nomtaiv taiv, kt_uint vart,
 #define K_NTAIV_YALL 0x08    /* yksikön allatiivi */
 #define K_NTAIV_YESS 0x09    /* yksikön essiivi */
 #define K_NTAIV_YTRA 0x0A    /* yksikön translatiivi */
-#define K_NTAIV_YABE 0x0C    /* yksikön abessiivi */
+#define K_NTAIV_YABE 0x0B    /* yksikön abessiivi */
 
 #if KOSKUT_PLURALS
 #define K_NTAIV_MNOM 0x10    /* monikon nominatiivi */
@@ -152,8 +152,8 @@ extern kt_koko k_nvart_luo(kt_nomtaiv taiv, kt_uint vart,
 #define K_NTAIV_MALL 0x18    /* monikon allatiivi */
 #define K_NTAIV_MESS 0x19    /* monikon essiivi */
 #define K_NTAIV_MTRA 0x1A    /* monikon translatiivi */
-#define K_NTAIV_MIST 0x1B    /* monikon instruktiivi */
-#define K_NTAIV_MABE 0x1C    /* monikon abessiivi */
+#define K_NTAIV_MABE 0x1B    /* monikon abessiivi */
+#define K_NTAIV_MIST 0x1C    /* monikon instruktiivi */
 #define K_NTAIV_MCOM 0x1D    /* monikon komitatiivi (ei persoonapäätettä) */
 #endif
 

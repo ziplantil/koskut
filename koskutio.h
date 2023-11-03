@@ -56,7 +56,7 @@ extern kt_koko kt_out_conv(char **p, char *p1, const kt_merkki c);
 #define K_INB(p, p0) *--p
 /* kirjoita merkki osoittimeen p, mutta katkaise jos menisi p1:n yli.
    palauttaa montako tavua kirjoitett(ais)iin */
-#define K_OUT(p, p1, c) ((void)((p) < (p1) && (*p++ = (c))), 1)
+#define K_OUT(p, p1, c) ((void)((p) < (p1) && (*(p)++ = (c))), 1)
 
 #endif
 

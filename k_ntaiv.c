@@ -170,10 +170,9 @@ kt_bool k_ntaiv_ok(kt_nomini vart) {
 static const unsigned char taiv_vartalot[] = {
     K_NVART_YN, K_NVART_YH, K_NVART_YP, K_NVART_YH,
     K_NVART_YH, K_NVART_YI, K_NVART_YH, K_NVART_YH,
-    K_NVART_YH, K_NVART_YV, K_NVART_YH, 0,
-    K_NVART_YH,
+    K_NVART_YH, K_NVART_YV, K_NVART_YH, K_NVART_YH,
 #if KOSKUT_PLURALS
-    0, 0, 0,
+    0, 0, 0, 0,
     K_NVART_YH, K_NVART_MG, K_NVART_MP, K_NVART_MH,
     K_NVART_MH, K_NVART_MI, K_NVART_MH, K_NVART_MH,
     K_NVART_MH, K_NVART_MV, K_NVART_MH, K_NVART_MH,
@@ -207,17 +206,17 @@ static kt_koko k_paata(char *puskuri, char *loppu, const kt_merkki *paate,
 static const kt_merkki *tp_paatteet[15] = {
     NULL,    tp_ygen, NULL,    tp_yine, tp_yela,
     tp_ygen, tp_yade, tp_yabl, tp_yall, tp_ygen,
-    tp_ytra, tp_ygen, tp_yabe, tp_ycom, tp_mnom
+    tp_ytra, tp_yabe, tp_ygen, tp_ycom, tp_mnom
 };
 
 /* onko taivutuspäätteen lopussa A:ta?
        14 13 12 11 10 _9 _8 _7 _6 _5 _4 _3 _2 _1 _0
-        0  0  1  0  0  1  0  1  1  0  1  1  1  0  0
+        0  0  0  1  0  1  0  1  1  0  1  1  1  0  0
 
-      0001 0010 1101 1100
-    =0x 1    2    D    C
+      0000 1010 1101 1100
+    =0x 0    A    D    C
 */
-static const unsigned short tp_a = 0x12DCU;
+static const unsigned short tp_a = 0x0ADCU;
 
 /* Kirjoittaa taivutuspäätteen vartaloineen annettuun paikkaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
@@ -269,7 +268,7 @@ kt_koko k_ntaiv_taivuta(kt_nomini vart, kt_uint muoto,
 #if KOSKUT_PLURALS
     if (muoto >= 32 || (muoto & 15) >= 14)
 #else
-    if (muoto >= 14)
+    if (muoto >= 12)
 #endif
         return 0;
 
