@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-31
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_nvart.c - nominivartalot                                                 */
@@ -191,6 +191,7 @@ static const kt_merkki paatteet_data[] = {
     K_KV, K_SISAR_V, K_SISAR_K, K_LI, K_0,
 
 #define V_ILL_SEEN   144
+#define V_ILL_EEN    146
     K_LS, K_LE, K_LE, K_0,
 
 #define V_ILL_H      148
@@ -201,73 +202,70 @@ static const kt_merkki paatteet_data[] = {
 #define V_ILL_AN     152
     K_A, K_A, K_0,
 
-#define V_ILL_EEN    154
-    K_LE, K_0,
-
-#define V_AP         156
+#define V_AP         154
     K_FI_AP, K_0,
 
-#define V_CL         158
+#define V_CL         156
     K_FI_CL, K_0,
 
 #if KOSKUT_PLURALS
 
-#define V_OVI_MV     160
+#define V_OVI_MV     158
     K_KV, K_0,
 
-#define V_KALA_MV    162
+#define V_KALA_MV    160
     K_KV, K_O, K_0,
 
-#define V_SOLAKKA_MV 165
+#define V_SOLAKKA_MV 163
     K_KH, K_O, K_0,
 
-#define V_RISTI_MV   168
+#define V_RISTI_MV   166
     K_KV, K_LE, K_0,
 
-#define V_SISAR_MV   171
+#define V_SISAR_MV   169
     K_KV, K_SISAR_V, K_SISAR_K, K_0,
 
-#define V_KYTKIN_MV  175
+#define V_KYTKIN_MV  173
     K_KV, K_V, K_LM, K_0,
 
-#define V_VASTAUS_MV 179
-#define V_NAINEN_MV  180
+#define V_VASTAUS_MV 177
+#define V_NAINEN_MV  178
     K_LK, K_LS, K_0,
 
-#define V_TUHAT_MV   182
+#define V_TUHAT_MV   180
     K_LN, K_LS, K_0,
 
-#define V_MIES_MV    185
+#define V_MIES_MV    183
     K_LH, K_0,
 
-#define V_MH         187
+#define V_MH         185
     K_KH, K_0,
 
-#define V_VALO_MHH   189
+#define V_VALO_MHH   187
     K_KH, K_HM, K_V, K_0,
 
-#define V_RISTI_MH   193
+#define V_RISTI_MH   191
     K_KH, K_LE, K_0,
 
-#define V_KALA_MH    196
+#define V_KALA_MH    194
     K_KH, K_O, K_0,
 
-#define V_OVI_MH     199
+#define V_OVI_MH     197
     K_KH, K_HM, K_0,
 
-#define V_MG_DE      202
+#define V_MG_DE      200
     K_LD, K_LE, K_0,
 
-#define V_MG_STE     205
-#define V_MG_TE      206
+#define V_MG_STE     203
+#define V_MG_TE      204
     K_LS, K_LT, K_LE, K_0,
 
-#define V_MILL_SIIN  209
+#define V_MILL_SIIN  207
     K_LS, K_LI, K_LI, K_0,
 
-#define V_MILL_IH    213
-#define V_MILL_H     214
-#define V_MILL       215
+#define V_MILL_IH    211
+#define V_MILL_H     212
+#define V_MILL       213
     K_LI, K_LH, K_LI, K_0
 #endif /* KOSKUT_PLURALS */
 };
@@ -283,7 +281,7 @@ static const kt_merkki suo_vokaalit[8] = {
 static const kt_merkki sisar_kons[3] = { K_FI_L, K_FI_N, K_FI_R };
 
 static kt_koko k_vartalo(kt_nomtaiv taiv, char **p_puskuri, char *loppu,
-                         unsigned char pvart) {
+                         kt_uint pvart) {
     kt_merkki m;
     kt_koko n = 0;
     char *puskuri = *p_puskuri;
@@ -556,7 +554,7 @@ static const unsigned char vartalot_mg[64] = {
 /*    32     33     34     35     36     37     38     39  */
     0040U, 0040U, 0040U, 0040U, 0040U, 0040U, 0003U, 0022U,
 /*    40     41     42     43     44     45     46     47  */
-    0040U, 0041U, 0022U, 0040U, 0041U, 0040U, 0040U, 0041U,
+    0040U, 0041U, 0022U, 0041U, 0041U, 0040U, 0040U, 0041U,
 /*    48     49                                            */
     0041U, 0022U,     0,     0,     0,     0,     0,     0,
 /*                                              62     63  */
@@ -572,7 +570,7 @@ static const unsigned char vartalot_mg_b[] = {
 
 #endif /* KOSKUT_PLURALS */
 
-static kt_koko k_nvart_luo2(kt_nomtaiv taiv, unsigned vart,
+static kt_koko k_nvart_luo2(kt_nomtaiv taiv, kt_uint vart,
                             char **puskuri, char *loppu);
 
 static kt_koko k_nvart_yv(kt_nomtaiv taiv, char **puskuri, char *loppu) {
@@ -580,22 +578,22 @@ static kt_koko k_nvart_yv(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_nvart_yh(kt_nomtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char varsi = vartalot_ypih[K_LUOKKA(taiv)] & 7;
+    kt_uint varsi = vartalot_ypih[K_LUOKKA(taiv)] & 7;
     if (!varsi--) return k_nvart_yv(taiv, puskuri, loppu);
     return k_vartalo(taiv, puskuri, loppu, vartalot_yh_a[varsi]);
 }
 
 static kt_koko k_nvart_yi(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n = 0;
-    unsigned char varsi = (vartalot_ypih[K_LUOKKA(taiv)] >> 3) & 7;
+    kt_uint varsi = (vartalot_ypih[K_LUOKKA(taiv)] >> 3) & 7;
     n = k_nvart_yv(taiv, puskuri, loppu);
     return n + k_vartalo(taiv, puskuri, loppu, vartalot_yi_a[varsi]);
 }
 
 static kt_koko k_nvart_yp(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi;
-    unsigned kanta;
+    kt_uint varsi;
+    kt_uint kanta;
 
     kanta = vartalot_ypih[K_LUOKKA(taiv)] >> 6;
     if (kanta == 3) {
@@ -614,7 +612,7 @@ static kt_koko k_nvart_yp(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_nvart_yn(kt_nomtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char varsi;
+    kt_uint varsi;
 
     switch (K_LUOKKA(taiv)) {
         case 5:         /* risti */
@@ -634,7 +632,7 @@ static kt_koko k_nvart_yn(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 
 static kt_koko k_nvart_mv(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi = vartalot_mv[K_LUOKKA(taiv)];
+    kt_uint varsi = vartalot_mv[K_LUOKKA(taiv)];
     if (!varsi) return k_nvart_yn(taiv, puskuri, loppu);
     n = k_vartalo(taiv, puskuri, loppu, varsi);
     n += K_OUT(*puskuri, loppu, K_FI_I);
@@ -643,7 +641,7 @@ static kt_koko k_nvart_mv(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 
 static kt_koko k_nvart_mvj(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi = vartalot_mv[K_LUOKKA(taiv)];
+    kt_uint varsi = vartalot_mv[K_LUOKKA(taiv)];
     if (!varsi) return k_nvart_yn(taiv, puskuri, loppu);
     n = k_vartalo(taiv, puskuri, loppu, varsi);
     n += K_OUT(*puskuri, loppu, K_FI_J);
@@ -652,7 +650,7 @@ static kt_koko k_nvart_mvj(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 
 static kt_koko k_nvart_mh(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi;
+    kt_uint varsi;
 
     if (K_ASTE(taiv) == 4) {
         switch (K_LUOKKA(taiv)) {
@@ -680,8 +678,8 @@ varsi_ok:
 
 static kt_koko k_nvart_mp(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi;
-    unsigned char kanta;
+    kt_uint varsi;
+    kt_uint kanta;
 
     varsi = vartalot_mpih[K_LUOKKA(taiv)] >> 6;
     kanta = vartalot_mp_a[varsi];
@@ -693,7 +691,7 @@ static kt_koko k_nvart_mp(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 
 static kt_koko k_nvart_mi(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi;
+    kt_uint varsi;
 
     if (K_LUOKKA(taiv) == 14) { /* solakka: heikko vartalo */
         n = k_nvart_mh(taiv, puskuri, loppu);
@@ -707,8 +705,8 @@ static kt_koko k_nvart_mi(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 
 static kt_koko k_nvart_mg(kt_nomtaiv taiv, char **puskuri, char *loppu) {
     kt_koko n;
-    unsigned char varsi = vartalot_mg[K_LUOKKA(taiv)];
-    unsigned char kanta = vartalot_mg_a[varsi >> 3];
+    kt_uint varsi = vartalot_mg[K_LUOKKA(taiv)];
+    kt_uint kanta = vartalot_mg_a[varsi >> 3];
     varsi = vartalot_mg_b[varsi & 7];
     n = k_nvart_luo2(taiv, kanta, puskuri, loppu);
     return n + k_vartalo(taiv, puskuri, loppu, varsi);
@@ -716,7 +714,7 @@ static kt_koko k_nvart_mg(kt_nomtaiv taiv, char **puskuri, char *loppu) {
 
 #endif /* KOSKUT_PLURALS */
 
-static kt_koko k_nvart_luo2(kt_nomtaiv taiv, unsigned vart,
+static kt_koko k_nvart_luo2(kt_nomtaiv taiv, kt_uint vart,
                             char **puskuri, char *loppu) {
     switch (vart) {
         case 0:
@@ -751,7 +749,7 @@ static kt_koko k_nvart_luo2(kt_nomtaiv taiv, unsigned vart,
 }
 
 
-kt_koko k_nvart_luo(kt_nomtaiv taiv, unsigned vart,
+kt_koko k_nvart_luo(kt_nomtaiv taiv, kt_uint vart,
                     char *puskuri, kt_koko koko) {
     return k_nvart_luo2(taiv, vart, &puskuri, puskuri + koko);
 }

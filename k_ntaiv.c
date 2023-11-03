@@ -1,87 +1,13 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-31
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_ntaiv.c - nominin taivutus                                               */
 
 #include "koskut.h"
 #include "koskutio.h"
-
-static const unsigned char taiv_vartalot[] = {
-    K_NVART_YN, K_NVART_YH, K_NVART_YP, K_NVART_YH,
-    K_NVART_YH, K_NVART_YI, K_NVART_YH, K_NVART_YH,
-    K_NVART_YH, K_NVART_YV, K_NVART_YH, 0,
-    K_NVART_YH,
-#if KOSKUT_PLURALS
-    0, 0, 0,
-    K_NVART_YH, K_NVART_MG, K_NVART_MP, K_NVART_MH,
-    K_NVART_MH, K_NVART_MI, K_NVART_MH, K_NVART_MH,
-    K_NVART_MH, K_NVART_MV, K_NVART_MH, K_NVART_MH,
-    K_NVART_MH, K_NVART_MV
-#endif
-};
-
-static const kt_merkki tp_mnom[] = { K_FI_T, K_FI_NA };
-static const kt_merkki tp_ygen[] = { K_FI_N, K_FI_NA };
-static const kt_merkki tp_yine[] = { K_FI_S, K_FI_S, K_FI_NA };
-static const kt_merkki tp_yela[] = { K_FI_S, K_FI_T, K_FI_NA };
-static const kt_merkki tp_yade[] = { K_FI_L, K_FI_L, K_FI_NA };
-static const kt_merkki tp_yabl[] = { K_FI_L, K_FI_T, K_FI_NA };
-static const kt_merkki tp_yall[] = { K_FI_L, K_FI_L, K_FI_E, K_FI_NA };
-static const kt_merkki tp_ytra[] = { K_FI_K, K_FI_S, K_FI_I, K_FI_NA };
-static const kt_merkki tp_yabe[] = { K_FI_T, K_FI_T, K_FI_NA };
-static const kt_merkki tp_ycom[] = { K_FI_N, K_FI_E, K_FI_NA };
-
-static kt_koko k_paata(char *puskuri, char *loppu, const kt_merkki *paate,
-                       int etinen, int a) {
-    kt_koko n = 0;
-    kt_merkki m;
-    if (paate)
-        while ((m = *paate++) != K_FI_NA)
-            n += K_OUT(puskuri, loppu, m);
-    if (a)
-        n += K_OUT(puskuri, loppu, etinen ? K_FI_AE : K_FI_A);
-    return n;
-}
-
-static const kt_merkki *tp_paatteet[15] = {
-    NULL,    tp_ygen, NULL,    tp_yine, tp_yela,
-    tp_ygen, tp_yade, tp_yabl, tp_yall, tp_ygen,
-    tp_ytra, tp_ygen, tp_yabe, tp_ycom, tp_mnom
-};
-
-/* onko taivutuspäätteen lopussa A:ta?
-       14 13 12 11 10 _9 _8 _7 _6 _5 _4 _3 _2 _1 _0
-        0  0  1  0  0  1  0  1  1  0  1  1  1  0  0
-
-      0001 0010 1101 1100
-    =0x 1    2    D    C
-*/
-static const unsigned int tp_a = 0x12DCU;
-
-/* Kirjoittaa taivutuspäätteen vartaloineen annettuun paikkaan.
-   Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-kt_koko k_ntaiv_paate(kt_nomtaiv taiv, unsigned muoto,
-                      char *puskuri, kt_koko koko) {
-    unsigned vartalo = taiv_vartalot[muoto];
-    char *loppu = puskuri + koko;
-    int etinen = taiv & 0x8000;
-    kt_koko n = k_nvart_luo(taiv, vartalo, puskuri, koko);
-
-    if (n > koko) {
-        puskuri = loppu;
-    } else {
-        puskuri += n;
-    }
-
-    if (muoto > 16) muoto &= 15;
-    if (muoto > 13) muoto -= 2;
-
-    return n + k_paata(puskuri, loppu, tp_paatteet[muoto],
-                       etinen, (tp_a >> muoto) & 1);
-}
 
 #if KOSKUT_VERIFY
 
@@ -220,13 +146,13 @@ static const unsigned char vokaali_ok[64] = {
 
 #endif /* KOSKUT_VERIFY */
 
-#define K_ETINEN(taiv)    ((taiv) & 0x8000)
+#define K_ETINEN(taiv)    ((taiv) & 0x8000U)
 #define K_HEITTO(taiv)    ((taiv) & 0x4000)
 #define K_LUOKKA(taiv)    (((taiv) >> 8) & 63)
 #define K_ASTE(taiv)      (((taiv) >> 3) & 31)
 #define K_VOKAALI(taiv)   ((taiv) & 7)
 
-int k_ntaiv_ok2(kt_nomtaiv taiv) {
+kt_bool k_ntaiv_ok2(kt_nomtaiv taiv) {
     if (taiv == 0) return 0;
 #if KOSKUT_VERIFY
     if (!((aste_ok[aste_ok_k[K_LUOKKA(taiv)]] >> K_ASTE(taiv)) & 1))
@@ -237,8 +163,82 @@ int k_ntaiv_ok2(kt_nomtaiv taiv) {
     return 1;
 }
 
-int k_ntaiv_ok(kt_nomini vart) {
+kt_bool k_ntaiv_ok(kt_nomini vart) {
     return k_ntaiv_ok2(vart.taiv);
+}
+
+static const unsigned char taiv_vartalot[] = {
+    K_NVART_YN, K_NVART_YH, K_NVART_YP, K_NVART_YH,
+    K_NVART_YH, K_NVART_YI, K_NVART_YH, K_NVART_YH,
+    K_NVART_YH, K_NVART_YV, K_NVART_YH, 0,
+    K_NVART_YH,
+#if KOSKUT_PLURALS
+    0, 0, 0,
+    K_NVART_YH, K_NVART_MG, K_NVART_MP, K_NVART_MH,
+    K_NVART_MH, K_NVART_MI, K_NVART_MH, K_NVART_MH,
+    K_NVART_MH, K_NVART_MV, K_NVART_MH, K_NVART_MH,
+    K_NVART_MH, K_NVART_MV
+#endif
+};
+
+static const kt_merkki tp_mnom[] = { K_FI_T, K_FI_NA };
+static const kt_merkki tp_ygen[] = { K_FI_N, K_FI_NA };
+static const kt_merkki tp_yine[] = { K_FI_S, K_FI_S, K_FI_NA };
+static const kt_merkki tp_yela[] = { K_FI_S, K_FI_T, K_FI_NA };
+static const kt_merkki tp_yade[] = { K_FI_L, K_FI_L, K_FI_NA };
+static const kt_merkki tp_yabl[] = { K_FI_L, K_FI_T, K_FI_NA };
+static const kt_merkki tp_yall[] = { K_FI_L, K_FI_L, K_FI_E, K_FI_NA };
+static const kt_merkki tp_ytra[] = { K_FI_K, K_FI_S, K_FI_I, K_FI_NA };
+static const kt_merkki tp_yabe[] = { K_FI_T, K_FI_T, K_FI_NA };
+static const kt_merkki tp_ycom[] = { K_FI_N, K_FI_E, K_FI_NA };
+
+static kt_koko k_paata(char *puskuri, char *loppu, const kt_merkki *paate,
+                       kt_bool etinen, kt_bool a) {
+    kt_koko n = 0;
+    kt_merkki m;
+    if (paate)
+        while ((m = *paate++) != K_FI_NA)
+            n += K_OUT(puskuri, loppu, m);
+    if (a)
+        n += K_OUT(puskuri, loppu, etinen ? K_FI_AE : K_FI_A);
+    return n;
+}
+
+static const kt_merkki *tp_paatteet[15] = {
+    NULL,    tp_ygen, NULL,    tp_yine, tp_yela,
+    tp_ygen, tp_yade, tp_yabl, tp_yall, tp_ygen,
+    tp_ytra, tp_ygen, tp_yabe, tp_ycom, tp_mnom
+};
+
+/* onko taivutuspäätteen lopussa A:ta?
+       14 13 12 11 10 _9 _8 _7 _6 _5 _4 _3 _2 _1 _0
+        0  0  1  0  0  1  0  1  1  0  1  1  1  0  0
+
+      0001 0010 1101 1100
+    =0x 1    2    D    C
+*/
+static const unsigned short tp_a = 0x12DCU;
+
+/* Kirjoittaa taivutuspäätteen vartaloineen annettuun paikkaan.
+   Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
+kt_koko k_ntaiv_paate(kt_nomtaiv taiv, kt_uint muoto,
+                      char *puskuri, kt_koko koko) {
+    kt_uint vartalo = taiv_vartalot[muoto];
+    char *loppu = puskuri + koko;
+    kt_bool etinen = !!K_ETINEN(taiv);
+    kt_koko n = k_nvart_luo(taiv, vartalo, puskuri, koko);
+
+    if (n > koko) {
+        puskuri = loppu;
+    } else {
+        puskuri += n;
+    }
+
+    if (muoto > 16) muoto &= 15;
+    if (muoto > 13) muoto -= 2;
+
+    return n + k_paata(puskuri, loppu, tp_paatteet[muoto],
+                       etinen, (tp_a >> muoto) & 1);
 }
 
 /* yksikön heikot vartalot, monikossa sama mutta ^ 3
@@ -248,7 +248,7 @@ int k_ntaiv_ok(kt_nomini vart) {
       0001 1101 1101 1010
     =0x 1    D    D    A
 */
-static const unsigned int tvh_y = 0x1DDAU;
+static const unsigned short tvh_y = 0x1DDAU;
 
 K_INL void k_kopioi(char *puskuri, const char *sana, kt_koko koko) {
     while (koko--) *puskuri++ = *sana++;
@@ -256,7 +256,7 @@ K_INL void k_kopioi(char *puskuri, const char *sana, kt_koko koko) {
 
 /* taivuttaa nominia taivutusvartalon mukaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
+kt_koko k_ntaiv_taivuta(kt_nomini vart, kt_uint muoto,
                         const char *sana, kt_koko sana_pituus,
                         char *puskuri, kt_koko puskuri_koko) {
     char *loppu = puskuri + puskuri_koko;
@@ -293,11 +293,13 @@ kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
     /* taivutusluokka 9/10 (kala/koira), aste 4 (k:0), vokaali 0 (i),
        takavokaalit */
     if (K_VOKAALI(taiv) == 0 && K_ASTE(taiv) == 4 && !K_ETINEN(taiv)) {
-        unsigned luokka = K_LUOKKA(taiv);
+        kt_uint luokka = K_LUOKKA(taiv);
         if (luokka == 9 || luokka == 10) {
             char *temp = puskuri;
-            unsigned int tvh = tvh_y;
+            unsigned short tvh = tvh_y;
+#if KOSKUT_PLURALS
             if (muoto & 16) tvh ^= 3;
+#endif
             if ((tvh >> (muoto & 15)) & 1) {    /* heikot vartalot */
                 /* korjaa viimeinen I J:llä */
                 if (K_INB(temp, alku) == K_FI_I) {
@@ -324,7 +326,7 @@ kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
     return leikkaa + k_ntaiv_paate(taiv, muoto, puskuri, loppu - puskuri);
 }
 
-kt_koko k_ntaiv_taivuta2(kt_nomtaiv taiv, unsigned muoto,
+kt_koko k_ntaiv_taivuta2(kt_nomtaiv taiv, kt_uint muoto,
                         const char *sana, kt_koko sana_pituus,
                         char *puskuri, kt_koko puskuri_koko) {
     kt_nomini nom;

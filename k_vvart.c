@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-31
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_vvart.c - verbivartalot                                                  */
@@ -221,7 +221,7 @@ static const unsigned char v_iv_v[] = {
 /* PV + IV vartalot.
     PV:0 = 0.           IV:0 = 0.
     muut, ks. yllä. (vähennä 1, 1 indekseistä) */
-#define N(a,b) ((b) << 4 | (a))
+#define N(a,b) (unsigned char)((b) << 4 | (a))
 static const unsigned char v_pv_iv[] = {
 /*      0         1         2         3    */
     N( 0, 0), N( 1, 2), N( 1, 1), N( 1, 3),
@@ -324,7 +324,7 @@ static const kt_merkki suo_vokaalit[8] = {
 static const kt_merkki v_xkons[3] = { K_FI_L, K_FI_N, K_FI_R };
 
 static kt_koko k_vvartalo(kt_verbtaiv taiv, char **p_puskuri, char *loppu,
-                          unsigned char pvart) {
+                          kt_uint pvart) {
     kt_merkki m;
     kt_koko n = 0;
     char *puskuri = *p_puskuri;
@@ -372,23 +372,23 @@ static kt_koko k_vvartalo(kt_verbtaiv taiv, char **p_puskuri, char *loppu,
     return n;
 }
 
-static kt_koko k_vvart_luo2(kt_verbtaiv taiv, unsigned vart,
+static kt_koko k_vvart_luo2(kt_verbtaiv taiv, kt_uint vart,
                             char **puskuri, char *loppu);
 
 static kt_koko k_vvart_pv(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = v_pv_iv[K_LUOKKA(taiv)] & 15;
+    kt_uint vars = v_pv_iv[K_LUOKKA(taiv)] & 15;
     if (!vars--) return 0;
     return k_vvartalo(taiv, puskuri, loppu, v_pv_v[vars]);
 }
 
 static kt_koko k_vvart_ph(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = v_ph_ih[K_LUOKKA(taiv)] & 3;
+    kt_uint vars = v_ph_ih[K_LUOKKA(taiv)] & 3;
     if (!vars--) return k_vvart_pv(taiv, puskuri, loppu);
     return k_vvartalo(taiv, puskuri, loppu, v_ph_v[vars]);
 }
 
 static kt_koko k_vvart_iv(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = (v_pv_iv[K_LUOKKA(taiv)] >> 4) & 15;
+    kt_uint vars = (v_pv_iv[K_LUOKKA(taiv)] >> 4) & 15;
     kt_koko n;
     if (!vars--) return 0;
     n = k_vvartalo(taiv, puskuri, loppu, v_iv_v[vars]);
@@ -397,7 +397,7 @@ static kt_koko k_vvart_iv(kt_verbtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_vvart_ih(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = (v_ph_ih[K_LUOKKA(taiv)] >> 2) & 3;
+    kt_uint vars = (v_ph_ih[K_LUOKKA(taiv)] >> 2) & 3;
     kt_koko n;
     if (!vars--) return k_vvart_ph(taiv, puskuri, loppu);
     if (!vars--) return k_vvart_iv(taiv, puskuri, loppu);
@@ -407,7 +407,7 @@ static kt_koko k_vvart_ih(kt_verbtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_vvart_pp(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = v_pp_ip[K_LUOKKA(taiv)] & 15;
+    kt_uint vars = v_pp_ip[K_LUOKKA(taiv)] & 15;
     if (!vars--) {
         /* vars = 0: PV + d */
         kt_koko n = k_vvart_pv(taiv, puskuri, loppu);
@@ -418,7 +418,7 @@ static kt_koko k_vvart_pp(kt_verbtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_vvart_ip(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = (v_pp_ip[K_LUOKKA(taiv)] >> 4) & 7;
+    kt_uint vars = (v_pp_ip[K_LUOKKA(taiv)] >> 4) & 7;
     if (!vars--) {
         /* vars = 0: PP */
         return k_vvart_pp(taiv, puskuri, loppu);
@@ -439,7 +439,7 @@ static kt_koko k_vvart_ip(kt_verbtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_vvart_tk(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = v_tpik[K_LUOKKA(taiv)] & 3;
+    kt_uint vars = v_tpik[K_LUOKKA(taiv)] & 3;
     kt_koko n;
     if (!vars--) {
         /* vars = 0: PV(-ei) + i */
@@ -467,7 +467,7 @@ static kt_koko k_vvart_tk(kt_verbtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_vvart_ti(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = (v_tpik[K_LUOKKA(taiv)] >> 2) & 7;
+    kt_uint vars = (v_tpik[K_LUOKKA(taiv)] >> 2) & 7;
     if (!vars--) {
         /* vars = 0: PV+k */
         kt_koko n = k_vvart_pv(taiv, puskuri, loppu);
@@ -478,7 +478,7 @@ static kt_koko k_vvart_ti(kt_verbtaiv taiv, char **puskuri, char *loppu) {
 }
 
 static kt_koko k_vvart_tp(kt_verbtaiv taiv, char **puskuri, char *loppu) {
-    unsigned char vars = (v_tpik[K_LUOKKA(taiv)] >> 5) & 7;
+    kt_uint vars = (v_tpik[K_LUOKKA(taiv)] >> 5) & 7;
     if (!vars--) {
         /* vars = 0: PV+n */
         kt_koko n = k_vvart_pv(taiv, puskuri, loppu);
@@ -513,7 +513,7 @@ static kt_koko k_vvart_i2(kt_verbtaiv taiv, char **puskuri, char *loppu) {
     return n;
 }
 
-static kt_koko k_vvart_luo2(kt_verbtaiv taiv, unsigned vart,
+static kt_koko k_vvart_luo2(kt_verbtaiv taiv, kt_uint vart,
                             char **puskuri, char *loppu) {
     switch (vart) {
         case 0:
@@ -544,7 +544,7 @@ static kt_koko k_vvart_luo2(kt_verbtaiv taiv, unsigned vart,
     return 0;
 }
 
-kt_koko k_vvart_luo(kt_verbtaiv taiv, unsigned vart,
+kt_koko k_vvart_luo(kt_verbtaiv taiv, kt_uint vart,
                     char *puskuri, kt_koko koko) {
     return k_vvart_luo2(taiv, vart, &puskuri, puskuri + koko);
 }

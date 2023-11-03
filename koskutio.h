@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-30
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* koskutio.h - yleiset määrittelyt                                           */
@@ -25,6 +25,14 @@
 
 typedef char kt_merkki;
 typedef size_t kt_koko;
+#if KOSKUT_C99
+#include <stdint.h>
+typedef _Bool kt_bool;
+typedef uint_fast8_t kt_uint;
+#else
+typedef unsigned char kt_bool;
+typedef unsigned char kt_uint;
+#endif
 
 #if KOSKUT_CONVERT
 

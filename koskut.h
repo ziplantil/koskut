@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-30
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* koskut.h - kirjaston otsake                                                */
@@ -81,32 +81,32 @@ typedef unsigned short kt_verbtaiv;
 */
 
 typedef struct k_nomini {
-    kt_koko leikkaa;       /* montako tavua leikataan perusmuodon lopusta */
-    kt_nomtaiv taiv;       /* sanan taivutus */
+    kt_nomtaiv taiv;        /* sanan taivutus */
+    unsigned char leikkaa;  /* montako tavua leikataan perusmuodon lopusta */
 } kt_nomini;
 
 typedef struct k_nomveik {
     const char *sana;           /* veikattava sana */
     kt_koko sana_pituus;        /* sen pituus */
-    unsigned char tila;         /* tilakoneen sisäinen tila */
-    unsigned char monikot;      /* tarvitaanko monikkoja? */
-    unsigned char muoto;        /* veikkausvaiheen muoto (esim. yks. gen.) */
-    unsigned char valintoja;    /* montako valintaa */
-    kt_nomini edellinen;        /* edellinen arvaus */
     kt_nomini vaihdot[9];       /* vaihtoehtojen taivutukset */
+    kt_nomini edellinen;        /* edellinen arvaus */
     unsigned char tilat[9];     /* vaihtoehtojen kohdetilat */
+    unsigned char valintoja;    /* montako valintaa */
+    unsigned char tila;         /* tilakoneen sisäinen tila */
+    unsigned char muoto;        /* veikkausvaiheen muoto (esim. yks. gen.) */
     unsigned char luokka;       /* väliaikainen taivutusluokka */
     unsigned char vokaali;      /* väliaikainen loppuvokaali ja sointu
                                     s----VVV
                                         s: 0=taka, 1=etu
                                         VVV: vokaali (kuin yllä) */
+    unsigned char monikot;      /* tarvitaanko monikkoja? */
 } kt_nomveik;
 
 /* aste.c: Siirtää vahvan tai heikon asteen puskuriin. Palauttaa
    tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-extern kt_koko k_aste_aste(kt_nomtaiv taiv, unsigned vahva,
+extern kt_koko k_aste_aste(kt_nomtaiv taiv, kt_bool vahva,
                            char *puskuri, kt_koko koko);
-extern kt_koko k_aste_aste2(kt_nomtaiv taiv, unsigned vahva,
+extern kt_koko k_aste_aste2(kt_nomtaiv taiv, kt_bool vahva,
                             char **puskuri, char *loppu);
 
 #define K_NVART_YV 1         /* vahva yksikkövartalo */
@@ -124,7 +124,7 @@ extern kt_koko k_aste_aste2(kt_nomtaiv taiv, unsigned vahva,
 
 /* k_nvart.c: Kirjoittaa nominipäätteen vartalon annettuun paikkaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-extern kt_koko k_nvart_luo(kt_nomtaiv taiv, unsigned vart,
+extern kt_koko k_nvart_luo(kt_nomtaiv taiv, kt_uint vart,
                            char *puskuri, kt_koko koko);
 
 #define K_NTAIV_YNOM 0x00    /* yksikön nominatiivi */
@@ -159,31 +159,32 @@ extern kt_koko k_nvart_luo(kt_nomtaiv taiv, unsigned vart,
 
 /* k_ntaiv.c: Kirjoittaa taivutuspäätteen vartaloineen annettuun paikkaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-extern kt_koko k_ntaiv_paate(kt_nomtaiv taiv, unsigned muoto,
+extern kt_koko k_ntaiv_paate(kt_nomtaiv taiv, kt_uint muoto,
                              char *puskuri, kt_koko koko);
 
 /* k_ntaiv.c: tarkistaa onko kt_nomini kunnossa, <>0 = OK, =0 = ei OK */
-extern int k_ntaiv_ok(kt_nomini vart);
-extern int k_ntaiv_ok2(kt_nomtaiv taiv);
+extern kt_bool k_ntaiv_ok(kt_nomini vart);
+extern kt_bool k_ntaiv_ok2(kt_nomtaiv taiv);
 
 /* k_ntaiv.c: taivuttaa nominia taivutusvartalon mukaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa.
    sanan pituus luetaan tavuina. */
-extern kt_koko k_ntaiv_taivuta(kt_nomini vart, unsigned muoto,
+extern kt_koko k_ntaiv_taivuta(kt_nomini vart, kt_uint muoto,
                                const char *sana, kt_koko sana_pituus,
                                char *puskuri, kt_koko puskuri_koko);
-extern kt_koko k_ntaiv_taivuta2(kt_nomtaiv taiv, unsigned muoto,
+extern kt_koko k_ntaiv_taivuta2(kt_nomtaiv taiv, kt_uint muoto,
                                 const char *sana, kt_koko sana_pituus,
                                 char *puskuri, kt_koko puskuri_koko);
 
 /* k_nveik.c: nominiveikkain */
-extern void k_nveik_alusta(kt_nomveik *veikkaus, unsigned monikot,
+extern void k_nveik_alusta(kt_nomveik *veikkaus, kt_bool monikot,
                            const char *sana, kt_koko sana_pituus);
-extern unsigned k_nveik_vaihtoehtoja(const kt_nomveik *veikkaus);
-extern unsigned k_nveik_arvausmuoto(const kt_nomveik *veikkaus);
-extern kt_koko k_nveik_vaihtoehto(const kt_nomveik *veikkaus, unsigned numero,
+extern kt_uint k_nveik_vaihtoehtoja(const kt_nomveik *veikkaus);
+extern kt_uint k_nveik_arvausmuoto(const kt_nomveik *veikkaus);
+extern kt_koko k_nveik_vaihtoehto(const kt_nomveik *veikkaus,
+                                  kt_uint numero,
                                   char *puskuri, kt_koko puskuri_koko);
-extern void k_nveik_valitse(kt_nomveik *veikkaus, unsigned numero);
+extern void k_nveik_valitse(kt_nomveik *veikkaus, kt_uint numero);
 extern kt_nomini k_nveik_tulos(const kt_nomveik *veikkaus);
 
 /* kt_verbtaiv bittirakenne (16 bittiä):
@@ -229,8 +230,8 @@ extern kt_nomini k_nveik_tulos(const kt_nomveik *veikkaus);
 */
 
 typedef struct k_verbi {
-    kt_koko leikkaa;       /* montako tavua leikataan perusmuodon lopusta */
-    kt_verbtaiv taiv;      /* sanan taivutus */
+    kt_verbtaiv taiv;       /* sanan taivutus */
+    unsigned char leikkaa;  /* montako tavua leikataan perusmuodon lopusta */
 } kt_verbi;
 
 #define K_VTAIV_IPY1 0x00  /* yksikön 1. persoonan indikatiivin preesens */
@@ -317,21 +318,21 @@ typedef struct k_verbi {
 #define K_VVART_I2 11    /* 2. infinitiivin (E-infinitivin) vartalo */
 
 /* k_vvart.c */
-extern kt_koko k_vvart_luo(kt_verbtaiv taiv, unsigned vart,
+extern kt_koko k_vvart_luo(kt_verbtaiv taiv, kt_uint vart,
                            char *puskuri, kt_koko koko);
 
 /* k_vtaiv.c */
-extern int k_vtaiv_ok(kt_verbi vart);
-extern int k_vtaiv_ok2(kt_verbtaiv taiv);
+extern kt_bool k_vtaiv_ok(kt_verbi vart);
+extern kt_bool k_vtaiv_ok2(kt_verbtaiv taiv);
                            
 /* k_vtaiv.c */
-extern kt_koko k_vtaiv_taivuta(kt_verbi vart, unsigned muoto,
+extern kt_koko k_vtaiv_taivuta(kt_verbi vart, kt_uint muoto,
                                const char *sana, kt_koko sana_pituus,
                                char *puskuri, kt_koko puskuri_koko);
-extern kt_koko k_vtaiv_taivuta2(kt_verbtaiv taiv, unsigned muoto,
+extern kt_koko k_vtaiv_taivuta2(kt_verbtaiv taiv, kt_uint muoto,
                                 const char *sana, kt_koko sana_pituus,
                                 char *puskuri, kt_koko puskuri_koko);
-extern kt_koko k_vtaiv_paate(kt_verbtaiv taiv, unsigned muoto,
+extern kt_koko k_vtaiv_paate(kt_verbtaiv taiv, kt_uint muoto,
                              char *puskuri, kt_koko koko);
 
 #endif /* KOSKUT_H */

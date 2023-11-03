@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-31
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_vtaiv.c - verbien taivutus                                               */
@@ -284,7 +284,7 @@ static const unsigned char vtp_paatteet[] = {
 };
 
 static kt_koko k_vpaata(char *puskuri, char *loppu, unsigned vpaate,
-                        int etinen) {
+                        kt_bool etinen) {
     kt_koko n = 0;
     kt_merkki m;
     const kt_merkki *paate = &vpaate_data[vpaate];
@@ -339,7 +339,7 @@ static kt_koko k_vpaata(char *puskuri, char *loppu, unsigned vpaate,
 */
 static const unsigned long tvpv_y3p = 0x07BD87FEUL;
 
-#define K_ETINEN(taiv)    ((taiv) & 0x8000)
+#define K_ETINEN(taiv)    ((taiv) & 0x8000U)
 #define K_LKONS(taiv)     (((taiv) >> 13) & 2)
 #define K_LUOKKA(taiv)    (((taiv) >> 8) & 31)
 #define K_ASTE(taiv)      (((taiv) >> 3) & 31)
@@ -347,12 +347,12 @@ static const unsigned long tvpv_y3p = 0x07BD87FEUL;
 
 /* Kirjoittaa taivutuspäätteen vartaloineen annettuun paikkaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-kt_koko k_vtaiv_paate(kt_verbtaiv taiv, unsigned muoto,
+kt_koko k_vtaiv_paate(kt_verbtaiv taiv, kt_uint muoto,
                       char *puskuri, kt_koko koko) {
     unsigned vartalo = vtaiv_vartalot[muoto];
     const char *alku = puskuri;
     char *loppu = puskuri + koko;
-    int etinen = taiv & 0x8000;
+    kt_bool etinen = !!K_ETINEN(taiv);
     kt_koko n;
 
     if (!vartalo) return 0;
@@ -459,7 +459,7 @@ static const unsigned char vvokaali_ok[64] = {
 
 #endif /* KOSKUT_VERIFY */
 
-int k_vtaiv_ok2(kt_verbtaiv taiv) {
+kt_bool k_vtaiv_ok2(kt_verbtaiv taiv) {
     if (taiv == 0) return 0;
     if (K_LUOKKA(taiv) > 27) return 0;
 #if KOSKUT_VERIFY
@@ -471,7 +471,7 @@ int k_vtaiv_ok2(kt_verbtaiv taiv) {
     return 1;
 }
 
-int k_vtaiv_ok(kt_verbi vart) {
+kt_bool k_vtaiv_ok(kt_verbi vart) {
     return k_vtaiv_ok2(vart.taiv);
 }
 
@@ -481,7 +481,7 @@ K_INL void k_kopioi(char *puskuri, const char *sana, kt_koko koko) {
 
 /* taivuttaa verbiä taivutusvartalon mukaan.
    Palauttaa tavujen määrän, vaikka niin monelle ei olisi ollut tilaa */
-kt_koko k_vtaiv_taivuta(kt_verbi vart, unsigned muoto,
+kt_koko k_vtaiv_taivuta(kt_verbi vart, kt_uint muoto,
                         const char *sana, kt_koko sana_pituus,
                         char *puskuri, kt_koko puskuri_koko) {
     char *loppu = puskuri + puskuri_koko;
@@ -510,9 +510,9 @@ kt_koko k_vtaiv_taivuta(kt_verbi vart, unsigned muoto,
     return leikkaa + k_vtaiv_paate(taiv, muoto, puskuri, loppu - puskuri);
 }
 
-kt_koko k_vtaiv_taivuta2(kt_verbtaiv taiv, unsigned muoto,
-                        const char *sana, kt_koko sana_pituus,
-                        char *puskuri, kt_koko puskuri_koko) {
+kt_koko k_vtaiv_taivuta2(kt_verbtaiv taiv, kt_uint muoto,
+                         const char *sana, kt_koko sana_pituus,
+                         char *puskuri, kt_koko puskuri_koko) {
     kt_verbi verb;
     verb.leikkaa = 0;
     verb.taiv = taiv;

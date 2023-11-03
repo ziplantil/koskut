@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
-            tehnyt ziplantil 2022 -- lisenssi: MIT
-            versio: 2022-12-31
+            tehnyt ziplantil 2022-2023 -- lisenssi: MIT
+            versio: 2023-11-03
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_aste.c - asteet/astevaihtelut                                            */
@@ -86,12 +86,12 @@ static const unsigned char a_heikot[] = {
     0, 0
 };
 
-kt_koko k_aste_aste2(kt_nomtaiv taiv, unsigned vahva,
+kt_koko k_aste_aste2(kt_nomtaiv taiv, kt_bool vahva,
                      char **p_puskuri, char *loppu) {
     char *puskuri = *p_puskuri;
-    unsigned astevaihtelu = (taiv >> 3) & 31;
+    kt_uint astevaihtelu = (taiv >> 3) & 31;
     kt_koko n;
-    unsigned char aste;
+    kt_uint aste;
 
     if (astevaihtelu & 16) {
         n = 0;
@@ -128,7 +128,7 @@ kt_koko k_aste_aste2(kt_nomtaiv taiv, unsigned vahva,
     return n;
 }
 
-kt_koko k_aste_aste(kt_nomtaiv taiv, unsigned vahva,
+kt_koko k_aste_aste(kt_nomtaiv taiv, kt_bool vahva,
                     char *puskuri, kt_koko koko) {
     return k_aste_aste2(taiv, vahva, &puskuri, puskuri + koko);
 }
