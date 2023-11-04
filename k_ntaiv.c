@@ -1,7 +1,7 @@
 /*******************************************************************************
             Koskut -- pieni suomen kielen taivutuskirjasto
             tehnyt ziplantil 2022-2023 -- lisenssi: MIT
-            versio: 2023-11-03
+            versio: 2023-11-04
             <https://github.com/ziplantil/koskut>
 *******************************************************************************/
 /* k_ntaiv.c - nominin taivutus                                               */
@@ -91,7 +91,7 @@ static const unsigned char vokaali_ok[64] = {
     0,
     /*  1 : valo     */      B(0, 0, 0, 1, 1, 1, 0, 1),
     /*  2 : palvelu  */      B(0, 0, 0, 1, 1, 1, 0, 1),
-    /*  3 : valtio   */      B(0, 1, 0, 1, 0, 1, 0, 0),
+    /*  3 : valtio   */      B(0, 1, 0, 1, 0, 0, 0, 1),
     /*  4 : laatikko */      B(0, 0, 0, 1, 1, 1, 0, 1),
     /*  5 : risti    */      B(0, 0, 1, 0, 0, 0, 0, 0),
     /*  6 : paperi   */      B(0, 0, 1, 0, 0, 0, 0, 0),

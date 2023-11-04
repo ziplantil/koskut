@@ -271,7 +271,7 @@ Taulukko sallituista vartalovokaaleista
 
      1         valo             -  -  -  @  @  @  -  @
      2         palvelu          -  -  -  @  @  @  -  @
-     3         valtio           -  @  -  @  -  @  -  -
+     3         valtio           -  @  -  @  -  -  -  @
      4         laatikko         -  -  -  @  @  @  -  @
      5         risti            -  -  @  -  -  -  -  -
      6         paperi           -  -  @  -  -  -  -  -

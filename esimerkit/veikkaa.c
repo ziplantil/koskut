@@ -83,7 +83,11 @@ int main(int argc, char *argv[]) {
             kt_koko k;
             k = k_nveik_vaihtoehto(&veikkaus, i, puskuri, sizeof(puskuri) - 1);
             nolla_loppuun(puskuri, sizeof(puskuri), k);
+#if DEBUG
+            printf("%d. 0x%04x %s\n", i + 1, veikkaus.vaihdot[i].taiv, puskuri);
+#else
             printf("%d. %s\n", i + 1, puskuri);
+#endif
         }
 
         i = 0;
